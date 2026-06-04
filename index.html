@@ -35,7 +35,7 @@
   .node{background:var(--white);border:2px solid var(--lemon-d);border-radius:10px;padding:10px 14px;text-align:center;font-size:12.5px;font-weight:600;color:var(--ink);}
   .node.dark{background:var(--green);color:var(--white);border-color:var(--green);}
   .node.dark .small{color:#e9f4e0;}
-  .node.big{font-size:14px;padding:12px 18px;}
+  .node.big{font-size:15px;padding:12px 18px;}
   .node .small{color:var(--mut);}
   .arrow{color:var(--green);font-size:20px;font-weight:bold;}
   .diag{display:flex;gap:14px;flex-wrap:wrap;margin:14px 0;}
@@ -45,8 +45,14 @@
   .dcard .small{color:var(--mut);font-size:11.5px;}
   .lever{display:flex;flex-direction:column;align-items:center;gap:10px;margin:16px 0;}
   .lever .row3{display:flex;gap:14px;justify-content:center;flex-wrap:wrap;width:100%;}
-  .lever .lcard{flex:1;min-width:170px;background:var(--lemon-bg);border:1px solid var(--line);border-top:4px solid var(--green);border-radius:8px;padding:14px 12px;text-align:center;font-size:12.5px;}
-  .lcard .ic{font-size:22px;}.lcard b{color:var(--ink);display:block;margin:4px 0 3px;}
+  .lever .lcard{flex:1;min-width:170px;background:var(--lemon-bg);border:1px solid var(--line);border-top:4px solid var(--green);border-radius:8px;padding:15px 13px;text-align:center;font-size:14.5px;}
+  .lcard .ic{font-size:24px;}.lcard b{color:var(--ink);display:block;margin:5px 0 4px;font-size:15px;}
+  .lcard .small{font-size:13px;color:var(--mut);}
+  .riskgrid{display:grid;grid-template-columns:repeat(2,1fr);gap:12px;margin:14px 0;}
+  .rcard{background:var(--lemon-bg);border:1px solid var(--line);border-left:4px solid var(--green);border-radius:8px;padding:12px 14px;}
+  .rcard .rh{font-weight:800;color:var(--ink);font-size:13.5px;margin-bottom:5px;}
+  .rcard .rh span{color:var(--green-d);font-weight:600;font-size:12px;}
+  .rcard .rp{font-size:12.5px;color:#333;line-height:1.5;}
   .bars{margin:12px 0;}
   .barrow{display:flex;align-items:center;gap:8px;margin:4px 0;font-size:12.5px;}
   .barrow .lbl{width:84px;text-align:right;color:var(--mut);flex-shrink:0;}
@@ -271,7 +277,7 @@
 <tr><td>이유</td><td>1개당 남는 돈이 가장 크고, 리뷰 54·CVR 2.57%로 살아있는 PDP 보유</td><td>CVR 0.14% — 전환 시스템부터 구축</td></tr>
 </table>
 <p><b>역할 분담:</b> 아마존은 이미 구매 의향이 있는 검색 수요를 <i>수확</i>하고, Meta는 <b>가설 기반 소재 발견(소재가 곧 타겟팅)</b>으로 신규 수요를 <i>창출</i>해 아마존으로 유입시킵니다.</p>
-<div class="box"><b>메타 운영 원칙 — Creative-Led Hypothesis Discovery</b><br><b>광고는 도박이 아니라 시스템입니다.</b> 타겟팅이 자동화된 시대에는 <b>소재가 곧 타겟팅</b>입니다. → 히어로 페르소나 1개(Anti-Retinol Refugee)에 집중하고, <b>5앵글 × 훅3 = 주 5실험</b>으로 고객·메시지를 동시에 발견해, 이긴 컨셉만 한 캠페인으로 합쳐 예산을 몰아줍니다. <span class="def">(실행 상세 §5)</span></div>
+<div class="box"><b>메타 운영 원칙 — Creative-Led Hypothesis Discovery</b><br><b>광고는 도박이 아니라 시스템입니다.</b> 타겟팅이 자동화된 시대에는 <b>소재가 곧 타겟팅</b>입니다. → 히어로 페르소나 1개(Anti-Retinol Refugee)에 집중하고, <b>5앵글 × 훅3 = 주 5실험</b>으로 고객·메시지를 동시에 발견해, 이긴 컨셉만 한 캠페인으로 합쳐 예산을 몰아줍니다.</div>
 
 <h3>3-4. SKU 전략 — 세럼 집중(P1~2) → 번들·확장(2027)</h3>
 <ul>
@@ -287,7 +293,7 @@
 &nbsp;&nbsp;• <span class="warn">운영 규칙: 자사 브랜드명 PPC 미집행</span> — 메타가 유입시킨 브랜드 검색이 PPC로 집계되는 것을 방지<br>
 &nbsp;&nbsp;• 2027 오가닉이 커지면 베이스라인 대비 증가분(리프트) 측정으로 전환</p>
 <p><span class="def">CTR=클릭률 · 훅률=3초 시청률 · MER=전체 매출÷전체 광고비 · BRB=Brand Referral Bonus(référral 10% 환급)</span></p>
-<div class="box"><b>왜 이렇게 측정하나요?</b><br>Meta→Amazon은 아마존이 "어떤 광고가 판매를 일으켰는지"를 정확히 알려주지 않아, 광고 단위 매출(ROAS)을 신뢰하기 어렵습니다. 그래서 <b>소재는 클릭 진단 사다리(훅·hold·CTR)로 평가하고, 사업 전체는 MER로 판단</b>합니다.</div>
+<div class="box"><b>왜 이렇게 측정하나요?</b><br>Meta→Amazon은 아마존이 "어떤 광고가 판매를 일으켰는지"를 정확히 알려주지 않아, 광고 단위 매출(ROAS)을 신뢰하기 어렵습니다. 그래서 <b>소재는 클릭 진단 사다리(훅률·시청 유지율·CTR)로 평가하고, 사업 전체는 MER로 판단</b>합니다.</div>
 
 <h3>3-6. 페이즈</h3>
 <p>Phase 1(6/2~10/7)은 구축기, Phase 2(10/7~12/31)는 수확기입니다.</p>
@@ -295,7 +301,7 @@
 <!-- 4 -->
 <h2 id="s4">4. 마케팅 캘린더 & 페이즈</h2>
 <h3>4-1. 2026~2027 전체 캘린더 (시간 흐름)</h3>
-<p class="small">빅프로모·뷰티 행사를 기준으로 운영합니다. 위에서 아래로 시간이 흐릅니다.</p>
+<p class="small">빅프로모션·뷰티 행사를 기준으로 운영합니다. 위에서 아래로 시간이 흐릅니다.</p>
 <div class="vcal">
 <div class="vphase" style="background:var(--lemon)">PHASE 1 · 구축기 (6/2 – 10/7)</div>
 <div class="vrow"><span class="vd">6/8</span><span>Meta 광고 착수(4단계 발견 시퀀스) · 레몬더마 써클 운영 시작</span></div>
@@ -325,7 +331,7 @@
 <table>
 <tr><th>구분</th><th>지표</th><th>목표</th></tr>
 <tr class="tot"><td colspan="3">1차 · 소재 검증 (클릭 진단 사다리)</td></tr>
-<tr><td>소재</td><td>훅률(3초) · hold(15초) · CTR</td><td><b>30%+ · 50%+ · 3%+</b></td></tr>
+<tr><td>소재</td><td>훅률 · 시청 유지율 · CTR (진단 사다리)</td><td><b>30%+ · 40%+ · 2%+</b></td></tr>
 <tr><td>속도</td><td>주간 실험 · 히어로 소재 누적</td><td><b>주 5실험 지속 · 5개</b></td></tr>
 <tr class="tot"><td colspan="3">2차 · 사업 결과 (§7에서 추적)</td></tr>
 <tr><td>볼륨</td><td>일 판매수 / CVR(아마존·틱톡)</td><td>~38개 / 3.5%·1.0%</td></tr>
@@ -338,7 +344,7 @@
 <h4>① 히어로 페르소나 1개 집중</h4>
 <p>Phase 1은 가장 유력하고 나머지를 포괄하는 한 페르소나에 집중합니다 — <b>Anti-Retinol Refugee</b>(브리프 P3★): "클린·비건은 약해 답답하지만 자극 강한 임상은 무서워 못 쓰는 사람." 이 페인이 서브 4개(글래스스킨·K-약국·비건액티브·임신안전)를 욕구 차원에서 포괄합니다. → <b>Meta 타겟은 브로드로 두고, 소재가 이 사람에게 말하게</b> 합니다. 소재가 타겟팅을 하면 Meta가 반응자를 찾아줍니다.</p>
 <div class="box"><b>"고객도 모르는데 왜 하나만?" — 모르기 때문에 하나입니다</b><br>
-• <b>메타 학습은 '신호의 일관성'으로 빨라집니다.</b> 여러 페르소나를 동시에 태우면 메타 AI가 "이 브랜드가 누굴 원하는지"를 못 읽어 학습이 흩어지고 CPA가 오릅니다. 한 페르소나에 여러 앵글·훅을 태우면 <b>겨냥점이 하나</b>라 신호가 모여, 메타가 그 사람의 룩어라이크를 빠르게 찾습니다.<br>
+• <b>메타 학습은 '신호의 일관성'으로 빨라집니다.</b> 여러 페르소나를 동시에 태우면 메타 AI가 "이 브랜드가 누굴 원하는지"를 못 읽어 학습이 흩어지고 CPA가 오릅니다. 한 페르소나에 여러 앵글·훅을 태우면 <b>겨냥점이 하나</b>라 신호가 모여, 메타가 그 사람과 비슷한 신규 고객을 빠르게 찾습니다.<br>
 • <b>고객을 모를수록 좁혀야 빨리 압니다.</b> 5명을 얕게 보면 다 신호가 약해 아무것도 확신 못 합니다. 1명을 깊게 파면 그 1명은 확실히 알게 됩니다 — 저예산일수록 집중이 발견을 가속합니다.<br>
 • <b>좁히되 좁지 않습니다.</b> 코어의 페인이 서브 4개를 포괄하고, 5앵글 변주가 인접 페르소나까지 건드립니다.</div>
 
@@ -357,24 +363,26 @@
 <p class="small">각 앵글마다 위 훅을 3가지로 변주 → 클릭으로 이긴 앵글·훅을 가려냅니다. <span class="def">(Ad Library 53개 브랜드는 앵글 영감 소싱용 — 위너는 실제 집행 성과로 정의)</span></p>
 
 <h4>③ 진단 사다리로 학습 (매출 데이터 없이도)</h4>
-<p>클릭단 지표가 각각 다른 질문에 답합니다 — <b>훅률</b>=앵글이 맞는 사람을 멈췄나 / <b>hold</b>=컨셉이 붙잡았나 / <b>CTR</b>=메시지에 행동의향. (광고별 매출·ROAS는 보지 않음)</p>
-<div class="flow">
-<div class="node">Day 1<br><span class="small">훅률 20%+ · 확실히 안 되는 소재만 즉시 중단</span></div><div class="arrow">→</div>
-<div class="node">Day 3<br><span class="small">CTR≥2% · CPC≤₩2,320 (+훅 25%↑)</span></div><div class="arrow">→</div>
-<div class="node dark">Day 7 히어로<br><span class="small">훅≥30% · CTR≥3% · hold≥50%</span></div>
-</div>
-<p class="small">클릭단은 후보 스크리닝이지 최종 위너 확정이 아닙니다. 사업 효율(MER)은 §3-5 잔차법(전체 아마존−아마존 PPC)으로 전구간 추적합니다.</p>
+<p><b>같은 앵글의 훅 3개</b>가 한 실험방에서 경쟁합니다. 세 지표가 각각 다른 질문에 답합니다 — <b>훅률</b>=훅(첫 3초)이 맞는 사람을 멈췄나 / <b>시청 유지율</b>=앵글(컨셉)이 끝까지 붙잡았나 / <b>CTR</b>=메시지에 행동의향.</p>
+<table>
+<tr><th>지표 (정의)</th><th>Day 1 — 생존</th><th>Day 3 — 증액 유지</th><th>Day 7 — 위너(통합)</th></tr>
+<tr><td><b>훅률</b> (3초 시청÷노출)</td><td>≥ 20%</td><td>≥ 25%</td><td>≥ 30%</td></tr>
+<tr><td><b>시청 유지율</b> (평균 시청÷영상 길이)</td><td>≥ 20%</td><td>≥ 30%</td><td>≥ 40%</td></tr>
+<tr><td><b>CTR</b> (링크 클릭÷노출)</td><td>≥ 1.0%</td><td>≥ 1.5%</td><td>≥ 2.0%</td></tr>
+</table>
+<p class="small">같은 3지표를 날이 갈수록 상향 적용합니다 — <b>Day 1</b> 미달 = 즉시 중단(약한 훅 컷) · <b>Day 3</b> 통과 = 증액 유지 · <b>Day 7</b> 3지표 동시 통과 = 통합 캠페인 승격. 기준은 업계 평균 + 보수적으로 잡았고, 매출·ROAS는 보지 않습니다(사업 효율은 §3-5 MER로 판단).</p>
+<p class="small">즉, <b>훅률</b>은 같은 앵글 안 훅 3개의 우열을, <b>시청 유지율·CTR</b>은 앵글(컨셉) 자체의 힘을 가릅니다. 이긴 훅·앵글만 통합 캠페인으로 올립니다.</p>
 
-<h4>④ 캠페인 구조 — 컨셉별로 따로 실험 → 이긴 것만 통합</h4>
+<h4>④ 캠페인 구조 — 컨셉별 실험방 → 통합 캠페인</h4>
 <div class="flow">
 <div class="node" style="border-color:var(--lemon)">🧪 컨셉별 실험방<br><span class="small">광고세트마다 컨셉 1개씩 따로(훅 2~3개) · 같은 예산으로 공정 비교</span></div>
-<div class="arrow">→ 이긴 것만 →</div>
+<div class="arrow">→</div>
 <div class="node dark">🏆 통합 캠페인<br><span class="small">이긴 컨셉만 한 캠페인으로 합쳐 예산 몰아주기 (저예산일수록 분산 금지)</span></div>
 </div>
 <p class="small">광고는 학습 보호를 위해 끄지 않고, 신규 소재 실험은 실험방에서만 교체합니다.</p>
 
 <h4>⑤ 출발 — 이미 쌓인 보유자산으로 즉시 + AI 병렬</h4>
-<p>맨땅에서 시작하지 않습니다. <b>이미 확보한 촬영 소스</b>만으로도 첫 5실험을 당장 착수할 수 있습니다:</p>
+<p><b>바로 시작합니다.</b> 이미 확보한 촬영 소스로 빠르게 시작하고 점차 개선해나갑니다:</p>
 <table>
 <tr><th>보유 소스</th><th>분량</th><th>1차 투입 앵글</th></tr>
 <tr><td>공장·실험실 클립</td><td>~20개</td><td>교육·권위</td></tr>
@@ -385,10 +393,16 @@
 <tr><td>화이트리스트 인플루언서</td><td>5명(제작 2주)</td><td>전 앵글(스케일)</td></tr>
 </table>
 <p class="small">W1은 위 보유 소스로 즉시 5실험을 착수하고, <b>AI 소재를 같은 실험방에 병렬 투입</b>해 AI 활용 가능성을 라이브로 검증합니다(별도 예산 낭비 0).</p>
-<p class="small"><b>고객 데이터 누적:</b> 매 실험마다 "누가 어떤 앵글·훅에 반응하나"가 메타에 쌓여 리타겟·룩어라이크 자산이 되고, §1의 "고객 데이터 부족"이 채워집니다.</p>
+<p class="small"><b>고객 데이터 누적:</b> 매 실험마다 "누가 어떤 앵글·훅에 반응하나"가 메타에 쌓여 리타겟·유사고객(비슷한 사람) 타겟 자산이 되고, §1의 "고객 데이터 부족"이 채워집니다.</p>
 
 <h4>⑥ 소재 공급망 — 속도가 곧 경쟁력</h4>
-<p>위닝 소재가 희귀하므로 <b>빠르고 싼 소재 공급망이 핵심 경쟁력(해자)</b>입니다. 2인 팀이 물량을 내는 길 — <b>모듈러 재편집</b>(본체 1개 → 훅·앵글·자막 재조합) · <b>화이트리스트 크리에이터</b>(써클 5인) · <b>AI 양산</b>(스크립트→UGC: Arcads·Creatify / 소스 대량변형: CapCut·OpusClip / 정적: AdCreative) · <b>인하우스 디자이너</b>(6/15). <b>매주 같은 앵글에 훅만 바꾼 소재를 AI로 양산</b>해 실험방에 투입합니다. 월 60+ 소재 테스트는 월 20 미만 대비 ROAS 약 2.8배입니다.</p>
+<p>위닝 소재는 희귀하므로 <b>빠르고 싼 소재 공급망이 핵심 경쟁력(해자)</b>입니다. 2인 팀이 물량을 내는 길은 <b>2가지</b>로 확실하게 갑니다:</p>
+<div class="flow">
+<div class="node" style="border-color:var(--lemon)"><b>① AI 활용</b><br><span class="small">AI 인플루언서 영상(스크립트→UGC) + 보유 소스 대량 변형 — 매주 같은 앵글에 훅만 바꿔 양산</span></div>
+<div class="arrow">+</div>
+<div class="node" style="border-color:var(--lemon)"><b>② 레몬더마 써클 인플루언서</b><br><span class="small">emerging 크리에이터가 만든 진짜 UGC를 화이트리스트로 광고 소재화</span></div>
+</div>
+<p class="small">월 60+ 소재 테스트는 월 20 미만 대비 ROAS 약 2.8배입니다. 디자이너 합류(6/15) 후 재편집·양산 속도가 더 붙습니다.</p>
 
 <h3>5-3. 전환 · 인플루언서 · 리뷰</h3>
 <h4>전환(CRO)</h4>
@@ -396,22 +410,16 @@
 <h4>리뷰</h4>
 <ul><li>아마존은 세팅 완료로 자연 누적됩니다. 틱톡은 리뷰 수와 CVR 상관을 관찰하며 유료 리뷰 작업을 단계적으로 투입합니다.</li></ul>
 <h4>UGC · 인플루언서 엔진 (레몬더마 써클)</h4>
-<p class="small">기존 어필리에이트 ~600개 중 광고 재활용 &lt;5개 → 무차별 시딩(양만 있고 통제·장기성 없음) 대신 <b>좁고 깊은 큐레이션 코어 엔진</b>으로 재설계했습니다. <b>타겟 = ~5만 이하 emerging 뷰티 크리에이터</b>(매크로/메가 아님) — creator-led로 <i>함께 성장</i>. 가치 모델 <b>"We grow you. You grow us."</b> — 첫 협업은 돈이 아닌 가치(도달·코칭·소속)로 끌어들이고, 광고비는 성과 검증 후에만 투입합니다. <span class="def">상세 운영안: lemonderma-circle/operation-plan.md</span></p>
-<div class="box"><b>Circle Base (전원 공통 · Lv.1부터)</b><br>제품 + IG 콜라보·피처 노출 + <b>게시물별 AI 콘텐츠 피드백·아이디어</b>(거의 0비용 · 멤버 리텐션 + 히어로 소재 풀 강화 이중효과) + <b>어필리에이트 커미션 30%</b>(업계 10~15%의 2배 · 성과형 변동비 · 자연판매 한정 — Spotlight 부스팅 판매는 커미션 없음·광고비 회사 부담) + Spotlight 자격.</div>
-<div class="box"><b>The Spotlight — 검증 후 증액 (creator-led)</b><br>광고 부스팅을 '상위 티어 정적 보상'이 아니라 <b>오가닉 스파크를 보인 누구나 받는 게이트형</b>으로 운용 → §5-2 '컨셉 실험방 → 통합 캠페인'과 동일 구조: 🎬 <b>Post</b>(공짜 관찰) → ⚡ <b>Spark</b>(소액 부스트·클릭 게이트 G1) → 🚀 <b>Scale</b>(통과 시 증액·화이트리스트, 미달 시 소액 종료). 우리 광고비로 <i>그들의</i> 도달이 커지는 것 = 크리에이터 1순위 욕구.</div>
-<div class="ladder">
-<div class="step"><div class="lv" style="background:#cfe4b6;color:#3a5e22">1</div><div class="bd"><b>Glow</b> · 제품 1개 협찬<br><span class="up">↑ 승급: 누적 조회 2,000+ 또는 1개+ 판매</span></div></div>
-<div class="step"><div class="lv" style="background:#a9d189">2</div><div class="bd"><b>Shine</b> · 1세트 협찬<br><span class="up">↑ 승급: 누적 조회 1만+ 또는 5개+ 판매</span></div></div>
-<div class="step"><div class="lv" style="background:#7fbb5c">3</div><div class="bd"><b>Radiance</b> · 전제품 3개월 매달 1세트 + 신제품 무료 + 우선 Spotlight<br><span class="up">↑ 승급: 누적 조회 10만+ 또는 50개+ 판매</span></div></div>
-<div class="step"><div class="lv" style="background:#5c9e3c">4</div><div class="bd"><b>Luminary</b> · 6개월 매달 2세트 + 신제품 무료 + 특별 프로모딜 + 서울투어 + 전세계 런칭 우선초대 + 우선 Spotlight<br><span class="up">↑ 승급: 누적 조회 100만+ 또는 100개+ 판매</span></div></div>
-<div class="step"><div class="lv" style="background:#3f7a26">5</div><div class="bd"><b>Icon</b> · 매달 3세트 + 신제품 무료 + 특별 프로모딜 + 서울투어 + 전세계 런칭 우선초대 + VIP 프라이빗 이벤트·경비 지원 + 본사·실험실 방문 + 한국 앰버서더 콜라보 + 우선 Spotlight</div></div>
-</div>
-<div class="box" style="background:var(--lemon-bg);border-color:var(--lemon-d)"><b>어떻게 모으고 굴리나 — 소싱·운영</b><br>
-<b>소싱 3경로:</b> ① 기존 시딩풀 ~600에서 콘텐츠 결이 맞는 크리에이터 발굴 · ② 타겟 핸들 아웃리치(콜드 DM·메일) · ③ 인바운드 신청 폼.<br>
-<b>운영 리듬:</b> 온보딩 → 콘텐츠 가이드·AI 코칭 → <b>게시율 70% 목표</b> 관리 → 오가닉 스파크 추적 → Spotlight 게이트. <b>12주 로드맵</b>으로 코어 풀을 단계적으로 구축합니다. <span class="def">상세 운영안: operation-plan.md</span></div>
+<p class="small"><b>"We grow with creators on the way up."</b> 무차별 시딩(기존 ~600개 중 광고 재활용 &lt;5개) 대신, <b>~5만 이하 emerging 뷰티 크리에이터</b>를 골라 <i>함께 성장</i>시키는 좁고 깊은 코어 엔진으로 재설계했습니다. 팔로워 수가 아니라 <b>잠재력</b>에 베팅합니다.</p>
+<div class="lever"><div class="row3">
+<div class="lcard"><div class="ic">🎬</div><b>전담 마케팅팀</b><span class="small">게시물마다 피드백·아이디어 — 1M까지 코칭</span></div>
+<div class="lcard"><div class="ic">📣</div><b>광고로 도달 증폭</b><span class="small">검증된 콘텐츠에 회사 광고비 투입</span></div>
+<div class="lcard"><div class="ic">💸</div><b>판매당 30% 커미션</b><span class="small">업계 ~10%의 3배 · 성과형 변동비</span></div>
+</div></div>
+<p class="small"><b>5단계 사다리</b> Glow → Shine → Radiance → Luminary → Icon — 조회수 또는 판매로 승급(월 단위), 올라갈수록 보상·광고 지원 확대. <b>소싱</b> ① 기존 시딩풀 발굴 ② 타겟 아웃리치 ③ 인바운드 신청, <b>게시율 70%</b> 목표로 운영. 광고비는 성과 검증 뒤에만 투입합니다(Spotlight 게이트).</p>
 <div style="text-align:center;margin:20px 0 6px;">
-  <a href="https://vdvia.github.io/lemonderma-circle/" target="_blank" rel="noopener" style="display:inline-block;background:var(--lemon);color:var(--ink);border:1.5px solid var(--lemon-d);border-radius:30px;padding:13px 32px;font-weight:800;font-size:15px;text-decoration:none;box-shadow:0 2px 8px rgba(0,0,0,.14);">🍋 레몬더마 써클 인플루언서 제안서 보기 →</a>
-  <div class="small" style="margin-top:7px;">크리에이터가 실제로 받는 제안서 (데모) · 타겟 = ~5만 emerging 뷰티 크리에이터 · 커미션 30%</div>
+  <a href="https://johnvdvia.github.io/lemonderma-circle/" target="_blank" rel="noopener" style="display:inline-block;background:var(--lemon);color:var(--ink);border:1.5px solid var(--lemon-d);border-radius:30px;padding:13px 32px;font-weight:800;font-size:15px;text-decoration:none;box-shadow:0 2px 8px rgba(0,0,0,.14);">🍋 레몬더마 써클 인플루언서 제안서 전체 보기 →</a>
+  <div class="small" style="margin-top:7px;">크리에이터가 실제로 받는 제안서 페이지 · 티어·혜택·FAQ 전체 수록</div>
 </div>
 <h4>SNS 운영 (6/22~)</h4>
 <ul><li>전담 디자이너 합류로 6/22부터 공식 SNS를 운영합니다. <b>레몬더마의 진정성이 담긴 콘텐츠</b>(연구소·성분·창업자 서사 등)를 지속 업로드해 브랜드 신뢰와 커뮤니티를 키웁니다.</li></ul>
@@ -435,7 +443,7 @@
 <h3>5-5. 측정·보고</h3>
 <table>
 <tr><th>무엇을 보나</th><th>지표</th></tr>
-<tr><td>광고 1개가 좋은가</td><td>훅률 · hold rate · CTR (진단 사다리)</td></tr>
+<tr><td>광고 1개가 좋은가</td><td>훅률 · 시청 유지율 · CTR (진단 사다리)</td></tr>
 <tr><td>사업이 수익을 내는가</td><td>MER · 총 주문 수</td></tr>
 <tr><td>메타가 실제 얼마 기여하나</td><td>전체 아마존 − 아마존 PPC (채널 분리)</td></tr>
 <tr><td>커뮤니티·SNS 성장</td><td>써클 인플루언서 수 · SNS 방문자 수 · 평균 조회수 · 좋아요 · 댓글 수</td></tr>
@@ -569,7 +577,7 @@
 <div class="arrow">↓</div>
 <div class="node big" style="border-color:var(--green);background:var(--lemon-bg)">2027+ <b>B2B·오프라인 순이익</b></div>
 </div>
-<h3>8-2. 2027 분기별 행사·빅프로모 (시간 흐름)</h3>
+<h3>8-2. 2027 분기별 행사·빅프로모션 (시간 흐름)</h3>
 <div class="vcal">
 <div class="vphase" style="background:var(--lemon)">Q1 · 재정비·테스트 (1–3월)</div>
 <div class="vrow"><span class="vd">1월</span><span><span class="pill">B2B</span> Cosmoprof Miami — 디스트리뷰터</span></div>
@@ -598,6 +606,7 @@
 <tr><td>MakeUp in LA</td><td>3월</td><td>B2B</td><td>OEM·리테일 바이어 네트워크</td><td>~₩4~7M</td></tr>
 <tr><td>Sephoria</td><td>3월</td><td>소비자</td><td>소비자·인플루언서 직접 노출</td><td>~₩7~15M</td></tr>
 <tr><td>Cosmoprof Vegas</td><td>7월</td><td>B2B</td><td>북미 최대 뷰티 B2B</td><td>~₩15~22M</td></tr>
+<tr><td>Beautyworld Middle East</td><td>10–11월</td><td>B2B</td><td>UAE·사우디 진출 교두보 (§8-1 ① 레버리지 직결)</td><td>~₩15~25M</td></tr>
 </table>
 <h3>8-3. 제품 확장</h3>
 <ul>
@@ -607,15 +616,14 @@
 
 <!-- 9 -->
 <h2 id="s9">9. 리스크 & 예방</h2>
-<table>
-<tr><th>리스크</th><th>예방 (실행 가능한 것)</th></tr>
-<tr><td>틱톡 전환 병목 (CVR 0.14%)</td><td>틱톡 예산을 고정 최소로 묶어 리스크 한정. PDP 보강·리뷰 작업을 CVR 반응을 보며 단계 투입.</td></tr>
-<tr><td>세럼 품절 (BF/CM 최대 수확기)</td><td>9월 말 생산 착수를 데드라인으로 고정, 세럼 비중 높게 생산, 주간 재고 모니터링.</td></tr>
-<tr><td>9월 현금 저점 (~₩120M)</td><td>종우형과 9월 운전자금 사전 합의. 물량을 bad 시나리오로 1차 발주 후 수요 확인하고 추가.</td></tr>
-<tr><td>광고 효율 미달</td><td>실험방↔통합 캠페인 분리로 낭비 차단. MER 2개월 연속 미달 시 예산 동결·소재 전면 교체.</td></tr>
-<tr><td>인플루언서 확보 실패</td><td>비현금 가치(30% 커미션·AI 코칭·Spotlight 도달)로 끌어들이고 티어 락인. ~5만 emerging 크리에이터 다수로 이탈 리스크 분산.</td></tr>
-<tr><td>Meta 스킨케어 소재 거부·계정 리스크</td><td>나란히 before/after 금지(단일 다이어리로 재편집) · "Brightening"은 whitening 금지 → glow/even-tone · 임상 수치는 Amazon PDP 한정.</td></tr>
-</table>
+<div class="riskgrid">
+<div class="rcard"><div class="rh">⚠ 틱톡 전환 병목 <span>CVR 0.14%</span></div><div class="rp">틱톡 예산을 고정 최소로 묶어 리스크 한정. PDP 보강·리뷰를 CVR 반응 보며 단계 투입.</div></div>
+<div class="rcard"><div class="rh">📦 세럼 품절 <span>BF/CM 최대 수확기</span></div><div class="rp">9월 말 생산 착수를 데드라인으로 고정, 세럼 비중 높게 생산, 주간 재고 모니터링.</div></div>
+<div class="rcard"><div class="rh">💰 9월 현금 저점 <span>~₩120M</span></div><div class="rp">종우형과 9월 운전자금 사전 합의. 물량을 bad 시나리오로 1차 발주 후 수요 확인하고 추가.</div></div>
+<div class="rcard"><div class="rh">📉 광고 효율 미달</div><div class="rp">실험방↔통합 캠페인 분리로 낭비 차단. MER 2개월 연속 미달 시 예산 동결·소재 전면 교체.</div></div>
+<div class="rcard"><div class="rh">👥 인플루언서 확보 실패</div><div class="rp">비현금 가치(30% 커미션·AI 코칭·도달)로 끌어들이고 티어 락인. ~5만 emerging 다수로 이탈 분산.</div></div>
+<div class="rcard"><div class="rh">🛡 Meta 소재 거부·계정 리스크</div><div class="rp">나란히 before/after 금지(단일 다이어리) · "Brightening"→glow/even-tone · 임상 수치는 Amazon PDP 한정.</div></div>
+</div>
 
 <!-- 10 -->
 <h2 id="s10">10. VDVIA 마케팅 어드민 (LMA) — 데이터 인프라</h2>
@@ -646,7 +654,7 @@
 <h4>구성 (단계적 개발)</h4>
 <ul>
 <li><b>① 데이터 통합:</b> Amazon·TikTok Shop·Meta·CGETC(물류) + <b>써클 트래킹(핸들·티어·누적조회·판매·커미션)</b> 데이터를 한 곳으로 자동 수집.</li>
-<li><b>② 자동 측정:</b> 훅률·hold·CTR(진단 사다리)·주간 실험 현황·MER·채널 기여 분리를 자동 추적 (본 보고서의 측정 체계를 코드화).</li>
+<li><b>② 자동 측정:</b> 훅률·시청 유지율·CTR(진단 사다리)·주간 실험 현황·MER·채널 기여 분리를 자동 추적 (본 보고서의 측정 체계를 코드화).</li>
 <li><b>③ 재고·현금흐름 알림:</b> 재고 소진·재생산 데드라인(9월 말 등)·현금 저점을 사전 경고.</li>
 <li><b>④ 월간 리포트 자동 생성:</b> 볼륨·효율·자산·예산을 한 장으로 요약.</li>
 </ul>
