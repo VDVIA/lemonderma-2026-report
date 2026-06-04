@@ -1,0 +1,719 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="utf-8">
+<title>2026 레몬더마 마케팅 종합 보고서</title>
+<style>
+  :root{
+    --lemon:#F7DE5A; --lemon-d:#E6C636; --lemon-bg:#FEF8D9; --lemon-bg2:#FCF2BB;
+    --green:#6FAE4F; --green-d:#4d8a34;
+    --ink:#1f1f1f; --mut:#8a8770; --line:#ecdd9a; --white:#fff; --red:#c0392b;
+  }
+  *{box-sizing:border-box;}
+  body{font-family:-apple-system,"Apple SD Gothic Neo","Malgun Gothic",sans-serif;color:var(--ink);font-size:14px;line-height:1.65;max-width:1000px;margin:0 auto;padding:30px 26px;background:var(--white);}
+  h1{font-size:30px;color:var(--ink);border-bottom:5px solid var(--lemon);padding-bottom:10px;margin-bottom:2px;}
+  h2{font-size:21px;color:var(--ink);background:var(--lemon);margin-top:42px;padding:9px 16px;border-radius:8px;}
+  h3{font-size:16px;color:var(--ink);margin-top:24px;border-left:5px solid var(--green);padding-left:10px;}
+  h4{font-size:13.5px;color:var(--green-d);margin:14px 0 4px;}
+  .sub{color:var(--mut);font-size:12px;}
+  .def{color:var(--mut);font-size:11.5px;font-style:italic;}
+  .toc{margin:18px 0;padding:16px 22px;background:var(--lemon-bg);border:1px solid var(--line);border-radius:10px;max-width:480px;}
+  .toc .tt{font-weight:700;color:var(--ink);font-size:15px;margin-bottom:8px;}
+  .toc a{display:block;color:var(--ink);text-decoration:none;padding:5px 0;border-bottom:1px solid var(--line);font-size:13.5px;}
+  .toc a:last-child{border-bottom:none;}
+  .toc a .num{color:var(--green-d);font-weight:700;display:inline-block;width:26px;}
+  .box{background:var(--lemon-bg);border:1px solid var(--line);border-radius:8px;padding:12px 16px;margin:12px 0;}
+  .hero{background:var(--lemon-bg);border-left:6px solid var(--lemon-d);padding:14px 18px;border-radius:6px;margin:14px 0;font-size:15px;}
+  .warn{color:var(--green-d);font-weight:700;}.red{color:var(--red);}
+  table{border-collapse:collapse;width:100%;margin:10px 0 14px;font-size:12.5px;}
+  th,td{border:1px solid var(--line);padding:6px 9px;text-align:left;vertical-align:top;}
+  th{background:var(--lemon-bg2);color:var(--ink);font-weight:700;}
+  td.c,th.c{text-align:center;}td.r,th.r{text-align:right;}
+  .tot{background:var(--lemon-bg);font-weight:700;}
+  ul{margin:5px 0;padding-left:22px;}li{margin:3px 0;}
+  .flow{display:flex;align-items:center;gap:8px;flex-wrap:wrap;margin:14px 0;}
+  .node{background:var(--white);border:2px solid var(--lemon-d);border-radius:10px;padding:10px 14px;text-align:center;font-size:12.5px;font-weight:600;color:var(--ink);}
+  .node.dark{background:var(--green);color:var(--white);border-color:var(--green);}
+  .node.dark .small{color:#e9f4e0;}
+  .node.big{font-size:14px;padding:12px 18px;}
+  .node .small{color:var(--mut);}
+  .arrow{color:var(--green);font-size:20px;font-weight:bold;}
+  .diag{display:flex;gap:14px;flex-wrap:wrap;margin:14px 0;}
+  .dcard{flex:1;min-width:190px;background:var(--white);border:2px solid var(--lemon);border-top:6px solid var(--lemon-d);border-radius:10px;padding:14px 16px;}
+  .dcard .n{display:inline-block;background:var(--green);color:#fff;border-radius:50%;width:26px;height:26px;text-align:center;line-height:26px;font-weight:700;margin-bottom:6px;}
+  .dcard b{display:block;color:var(--ink);font-size:14px;}
+  .dcard .small{color:var(--mut);font-size:11.5px;}
+  .lever{display:flex;flex-direction:column;align-items:center;gap:10px;margin:16px 0;}
+  .lever .row3{display:flex;gap:14px;justify-content:center;flex-wrap:wrap;width:100%;}
+  .lever .lcard{flex:1;min-width:170px;background:var(--lemon-bg);border:1px solid var(--line);border-top:4px solid var(--green);border-radius:8px;padding:14px 12px;text-align:center;font-size:12.5px;}
+  .lcard .ic{font-size:22px;}.lcard b{color:var(--ink);display:block;margin:4px 0 3px;}
+  .bars{margin:12px 0;}
+  .barrow{display:flex;align-items:center;gap:8px;margin:4px 0;font-size:12.5px;}
+  .barrow .lbl{width:84px;text-align:right;color:var(--mut);flex-shrink:0;}
+  .barrow .track{flex:1;background:var(--lemon-bg2);border-radius:4px;overflow:hidden;height:18px;}
+  .barrow .fill{height:100%;background:var(--lemon);border-radius:4px;}
+  .barrow .fill.dark{background:var(--green);}
+  .barrow .fill.red{background:#e2a59c;}
+  .barrow .val{width:165px;font-size:12px;color:var(--ink);flex-shrink:0;}
+  .vcal{margin:14px 0;position:relative;padding-left:18px;border-left:3px solid var(--lemon-d);}
+  .vphase{color:var(--ink);font-weight:700;padding:6px 12px;border-radius:5px;margin:16px 0 6px -21px;font-size:13.5px;position:relative;}
+  .vrow{display:flex;gap:10px;padding:5px 0;font-size:12.5px;position:relative;}
+  .vrow::before{content:'';position:absolute;left:-25px;top:11px;width:11px;height:11px;border-radius:50%;background:var(--white);border:3px solid var(--green);}
+  .vrow.star::before{background:var(--lemon);border-color:var(--lemon-d);}
+  .vd{width:74px;flex-shrink:0;color:var(--green-d);font-weight:700;}
+  .gchart{border:1px solid var(--line);border-radius:8px;overflow:hidden;margin:12px 0;}
+  .gmh{display:flex;background:var(--lemon-bg2);font-size:12px;font-weight:700;color:var(--ink);}
+  .gmh .gsp{width:104px;flex-shrink:0;}
+  .gmh div.m{padding:5px;text-align:center;border-left:1px solid var(--white);}
+  .gtrack{display:flex;align-items:center;border-top:1px solid var(--lemon-bg2);}
+  .gtlabel{width:104px;flex-shrink:0;padding:6px 8px;font-size:12.5px;color:var(--ink);font-weight:700;}
+  .gzone{position:relative;flex:1;height:60px;}
+  .gbar{position:absolute;height:46px;top:7px;border-radius:5px;font-size:12px;line-height:1.25;color:#fff;padding:4px 9px;white-space:normal;overflow:hidden;display:flex;align-items:center;}
+  .ladder{display:flex;flex-direction:column-reverse;gap:5px;margin:12px 0;}
+  .ladder .step{display:flex;border-radius:8px;overflow:hidden;border:1px solid var(--line);}
+  .ladder .lv{width:44px;flex-shrink:0;color:#fff;display:flex;align-items:center;justify-content:center;font-weight:800;font-size:18px;}
+  .ladder .bd{padding:9px 12px;font-size:12px;background:var(--white);flex:1;}
+  .ladder .bd .up{color:var(--green-d);font-size:11px;}
+  .dash{border:1px solid var(--line);border-radius:12px;overflow:hidden;margin:14px 0;box-shadow:0 2px 10px rgba(0,0,0,.06);}
+  .dash .top{background:var(--ink);color:var(--lemon);padding:8px 14px;font-weight:700;font-size:13px;display:flex;justify-content:space-between;}
+  .dash .body{display:flex;}
+  .dash .side{background:var(--lemon-bg);width:150px;flex-shrink:0;padding:10px;font-size:12px;border-right:1px solid var(--line);}
+  .dash .side div{padding:6px 8px;border-radius:6px;margin:2px 0;color:var(--ink);}
+  .dash .side div.on{background:var(--lemon);font-weight:700;}
+  .dash .main{flex:1;padding:12px;}
+  .kpis{display:flex;gap:8px;flex-wrap:wrap;margin-bottom:10px;}
+  .kpi{flex:1;min-width:88px;background:var(--white);border:1px solid var(--line);border-radius:8px;padding:8px 10px;}
+  .kpi .k{font-size:10px;color:var(--mut);}.kpi .v{font-size:16px;font-weight:700;color:var(--ink);}
+  .chartph{background:var(--white);border:1px solid var(--line);border-radius:8px;padding:10px;height:84px;display:flex;align-items:flex-end;gap:5px;}
+  .chartph .cb{flex:1;background:var(--lemon);border-radius:3px 3px 0 0;}
+  .pill{display:inline-block;background:var(--green);color:#fff;border-radius:12px;padding:1px 9px;font-size:11px;font-weight:700;}
+  hr{border:none;border-top:1px solid var(--line);margin:26px 0;}
+  .small{font-size:12.5px;color:var(--mut);}
+  .asm{display:flex;gap:10px;flex-wrap:wrap;margin:10px 0;}
+  .asm div{background:var(--lemon-bg);border:1px solid var(--line);border-radius:7px;padding:7px 12px;font-size:12px;}
+  .asm b{color:var(--green-d);}
+  /* ===== 발표 모드 & 스포트라이트 ===== */
+  #presentBtn{position:fixed;top:14px;right:14px;z-index:9999;background:var(--lemon);color:var(--ink);border:1.5px solid var(--lemon-d);border-radius:8px;padding:8px 14px;font-weight:700;font-size:13px;cursor:pointer;box-shadow:0 2px 6px rgba(0,0,0,.15);}
+  .spotlight{position:fixed;width:150px;height:150px;border-radius:50%;pointer-events:none;z-index:9998;transform:translate(-50%,-50%);background:radial-gradient(circle,rgba(247,222,90,.55) 0%,rgba(247,222,90,.24) 45%,rgba(247,222,90,0) 70%);display:none;}
+  body.presenting{overflow:hidden;}
+  body.presenting #deck>.slide{display:none;position:fixed;inset:0;background:#fff;padding:48px 6vw 84px;overflow-y:auto;font-size:16px;}
+  body.presenting #deck>.slide.active{display:block;animation:slfade .25s ease;}
+  @keyframes slfade{from{opacity:0;transform:translateY(10px)}to{opacity:1;transform:none}}
+  body.presenting .slide table{font-size:14px;}
+  body.presenting .slide .small,body.presenting .slide .def{font-size:13px;}
+  body.presenting .slide h2{font-size:25px;margin-top:0;}
+  body.presenting .slide h3{font-size:19px;}
+  body.presenting .spotlight{display:block;}
+  #navbar{display:none;}
+  body.presenting #navbar{display:flex;position:fixed;bottom:0;left:0;right:0;z-index:9999;justify-content:center;align-items:center;gap:18px;background:var(--ink);color:#fff;padding:9px;}
+  #navbar button{background:var(--lemon);color:var(--ink);border:none;border-radius:6px;padding:6px 14px;font-weight:700;cursor:pointer;font-size:14px;}
+  #navbar .ct{font-weight:700;min-width:70px;text-align:center;}
+  @media print{#presentBtn,.spotlight,#navbar{display:none !important;}}
+</style>
+</head>
+<body>
+
+<h1>2026 레몬더마 마케팅 종합 보고서</h1>
+
+<div class="toc">
+<div class="tt">목차</div>
+<a href="#s1"><span class="num">1</span> 상황 인식</a>
+<a href="#s2"><span class="num">2</span> 제품 · 단위경제성 · 타겟</a>
+<a href="#s3"><span class="num">3</span> 전략 핵심 결정</a>
+<a href="#s4"><span class="num">4</span> 마케팅 캘린더 & 페이즈</a>
+<a href="#s5"><span class="num">5</span> Phase 1 플랜</a>
+<a href="#s6"><span class="num">6</span> Phase 2 플랜</a>
+<a href="#s7"><span class="num">7</span> 예산 · 재무 · 현금흐름</a>
+<a href="#s8"><span class="num">8</span> 장기 비전 & 레버리지</a>
+<a href="#s9"><span class="num">9</span> 리스크 & 예방</a>
+<a href="#s10"><span class="num">10</span> VDVIA 마케팅 어드민 (LMA)</a>
+<a href="#s11"><span class="num">11</span> 결정 요청</a>
+</div>
+
+<!-- 1 -->
+<h2 id="s1">1. 상황 인식</h2>
+
+<h3>1-1. 업계 현실</h3>
+<div class="box">
+<ul>
+<li><b>틱톡샵은 확률 게임에 가깝습니다.</b> 빅히트 하나에 영상 1,000~1,200개가 깔리고, 영상 수명은 2주에서 3일로 짧아졌습니다. T3(틱톡샵 월 매출 $65K)을 넘어야 안정권이며, 그 아래는 ROAS 1.0을 넘기 어렵습니다. 업계 공통 인식 — 틱톡은 1~2년 적자가 기본입니다.</li>
+<li><b>아마존 신규 리스팅은 적자로 시작하는 것이 정상입니다.</b> 초기 ROAS 0.56도 "정상" 범주입니다. 단 전제가 있습니다 — 상세페이지·A+가 전환을 못 하면 광고비는 그대로 낭비되고, 신규 부스팅 기간(2주~1달)도 준비 없이 보내면 회복되지 않습니다.</li>
+<li><b>부대비용이 매출의 절반을 차지합니다.</b> 판매수수료·물류·할인이 중간을 잠식하며, 메타→아마존 전환 데이터는 1/10만 측정됩니다(측정 공백).</li>
+</ul></div>
+
+<h3>1-2. 진짜 병목은 무엇인가</h3>
+<p><b>현재 저희가 필요한 건 방향 전환이 아니라, 이미 파악한 병목을 해결하기 위한 액션아이템들을 정의하고 실행을 통해 해결하는 것</b>입니다.</p>
+<div class="diag">
+<div class="dcard"><span class="n">1</span><b>전환 시스템 부재</b></div>
+<div class="dcard"><span class="n">2</span><b>고객 데이터 부족</b></div>
+</div>
+
+<h3>1-3. 우리의 비대칭 무기 — 작은 팀이 채널을 선점하는 시대</h3>
+<p>대기업은 자본이 많습니다. 그러나 그들에게 없고 우리에게 있는 것이 있습니다.</p>
+<div class="diag">
+<div class="dcard"><span class="n">⚡</span><b>의사결정 속도</b><span class="small">대기업은 결재·브랜드안전성·대행사·분기기획으로 결정→실행에 6주가 걸립니다. 우리는 전결권으로 24시간 내 실행합니다. 이 격차는 자본으로 메울 수 없습니다.</span></div>
+<div class="dcard"><span class="n">🤖</span><b>AI 네이티브 회사</b><span class="small">모든 업무를 클로드 코드로 진행해 회사의 모든 맥락·정보를 AI가 학습하게 함으로써, 모든 업무가 AI를 통해 돌아가는 메인 엔진을 갖춥니다.</span></div>
+<div class="dcard"><span class="n">📚</span><b>끊임없는 학습</b><span class="small">뷰티 마케팅은 결국 실무자 간 트렌드 학습 싸움입니다. 실무자 커뮤니티·컨설팅 상담을 통해 뷰티 마케터 네트워크에 지속적으로 녹아듭니다.</span></div>
+<div class="dcard"><span class="n">💎</span><b>진정성</b><span class="small">창업자가 직접 만드는 브랜드 서사는 대기업이 자본으로 만들 수 없습니다.</span></div>
+</div>
+<p><b>이것은 실제 실무자들의 사례로 가능성을 증명합니다.</b></p>
+<ul>
+<li><b>Growus:</b> 고정비 0원, 팀 3명 + AI 툴로 3개월 만에 티어3 도달.</li>
+<li><b>라운드랩:</b> 집요한 리마인더 루프로 크리에이터 업로드율 90~100%.</li>
+<li><b>부스터스:</b> 조직·기술 자체를 경쟁 우위(해자)로.</li>
+</ul>
+<div class="hero">결론 — 2026년의 채널은 <i>자본</i>이 아니라 <b>속도 × 시도횟수 × AI 레버리지 × 학습 × 진정성</b>으로 결정됩니다. 그것이 정확히 우리의 강점 구조입니다.</div>
+
+<!-- 2 -->
+<h2 id="s2">2. 제품 · 단위경제성 · 타겟</h2>
+
+<h3>2-1. 비용 산정표 (실측 기반, 환율 1,450)</h3>
+<p class="small">추정 항목은 <span class="warn">*</span> 표기.</p>
+<table>
+<tr><th>항목</th><th>세럼</th><th>크림</th><th>번들</th></tr>
+<tr><td>판매가</td><td>₩40,600</td><td>₩37,700</td><td>₩71,050</td></tr>
+<tr><td>제조원가(COGS)</td><td>₩4,272</td><td>₩3,868</td><td>₩8,140</td></tr>
+<tr><td>한국→US 해상 <span class="def">(전채널)</span></td><td>₩174*</td><td>₩218*</td><td>₩392*</td></tr>
+<tr><td>3PL→FBA <span class="def">(FBA만)</span></td><td>₩435*</td><td>₩551*</td><td>₩986*</td></tr>
+<tr><td>FBA 입고배치 <span class="def">(FBA만)</span></td><td>₩435</td><td>₩435</td><td>₩435</td></tr>
+<tr><td>FBA 보관 6개월 <span class="def">(FBA만)</span></td><td>₩116</td><td>₩131</td><td>₩247</td></tr>
+<tr><td>3PL 보관 6개월 <span class="def">(TikTok만)</span></td><td>₩87*</td><td>₩102*</td><td>₩189*</td></tr>
+<tr><td>풀필먼트</td><td colspan="3">FBA 단품 ₩5,931 · 번들 ~₩7,250* · TikTok 3PL ₩10,150/주문</td></tr>
+<tr><td>플랫폼 수수료</td><td colspan="3">Amazon 15% · Meta 순 5%(BRB 환급) · TikTok 6%</td></tr>
+</table>
+
+<h3>2-2. 단위경제성 (1개당 남는 돈 / 비율 / 본전 광고효율)</h3>
+<table>
+<tr><th></th><th>Amazon</th><th>Meta→Amazon</th><th>TikTok</th></tr>
+<tr><td><b>세럼</b></td><td>₩23,100 · 57% · 1.75x</td><td>₩27,200 · 67% · <b>1.49x</b></td><td>₩23,500 · 58% · 1.73x</td></tr>
+<tr><td><b>크림</b></td><td>₩20,900 · 55% · 1.80x</td><td>₩24,700 · 65% · 1.53x</td><td>₩21,100 · 56% · 1.79x</td></tr>
+<tr><td><b>번들</b></td><td>₩42,900 · 60% · 1.66x</td><td>₩50,000 · 70% · <b>1.42x</b></td><td>₩47,900 · 67% · 1.48x</td></tr>
+</table>
+<div class="box"><b>핵심:</b> Meta→Amazon이 가장 유리합니다. 번들이 1개당 가장 많이 남습니다.</div>
+<p class="small"><b>써클 커미션 단서:</b> 레몬더마 써클 크리에이터의 어필리에이트 <b>자연판매(TikTok)</b>엔 커미션 30%가 변동비로 추가됩니다 — 세럼 TikTok CM 58% → 약 28%. 단 <i>써클 귀속 자연판매 한정</i>이라 전체 영향은 작고(틱톡=마이너 채널), 성과형(팔릴 때만)이라 고정비 0-risk입니다. Spotlight 부스팅 판매는 커미션 없음(광고비 회사 부담).</p>
+<div class="hero" style="border-color:var(--green)"><b>"본전 ROAS 1.4~1.8"의 의미</b><br>
+이 수치는 <b>공헌이익 손익분기</b>(변동비만 회수)이며, <b>인건비·사무실·식비 등 부대비용은 제외</b>되어 있습니다. 모든 비용을 포함한 진짜 흑자는 업계 평균상 <b>ROAS 약 4~5가 필요</b>합니다.<br>
+→ 따라서 2026은 흑자가 아니라, <b>공헌이익을 확보하며 볼륨·자산을 축적하는 투자기</b>로 설계했습니다. (진짜 흑자는 2027+ 레버리지 회수 단계)</div>
+
+<h3>2-3. 타겟 — 누구에게 파는가</h3>
+<h4>코어 페르소나 (전환의 최종 도착지)</h4>
+<div style="display:flex;gap:14px;flex-wrap:wrap;margin:10px 0;align-items:stretch;">
+  <div style="background:var(--ink);color:#fff;border-radius:10px;padding:18px 20px;min-width:170px;display:flex;flex-direction:column;justify-content:center;text-align:center;">
+    <div style="color:var(--lemon);font-weight:700;font-size:12px;letter-spacing:1px;">★ CORE</div>
+    <div style="font-size:19px;font-weight:700;margin:8px 0;">Anti-Retinol<br>Refugee</div>
+    <div style="color:var(--lemon);font-size:12.5px;">28–40 · Female</div>
+  </div>
+  <div style="flex:1;min-width:300px;">
+    <table style="margin:0;">
+    <tr><th style="width:96px;">피부</th><td>민감 / 복합</td></tr>
+    <tr><th>가치</th><td>Vegan · Cruelty-Free · Clean</td></tr>
+    <tr><th>이력</th><td>K-beauty 졸업자 (Anua·BoJ·COSRX 후 답답함). The Ordinary·Drunk Elephant 자극 경험. <b>Retinol burn 경험·거부.</b></td></tr>
+    <tr><th>가격대</th><td>$25–50 (세럼 $28 정합)</td></tr>
+    <tr><th>PAIN</th><td>"클린·비건은 효능이 약해 답답하지만, 자극 강한 임상 제품은 무서워서 못 쓴다."</td></tr>
+    </table>
+  </div>
+</div>
+
+<h4>진입 전략 — 광범위 페인으로 들어와 코어로 전환</h4>
+<div class="flow">
+  <div class="node">입구 · 광범위 페인 키워드<br><span class="small">"내 피부 따갑다" · "잔주름 보인다" · "Vegan beauty 찾는데" · "Glass skin 원해" · "임신 중 anti-aging?"</span></div>
+  <div class="arrow">→</div>
+  <div class="node">Pain Reframe<br><span class="small">내러티브 전환</span></div>
+  <div class="arrow">→</div>
+  <div class="node dark">출구 · Anti-Retinol Refugee</div>
+</div>
+<p class="small">"#noretinol" 직접 검색은 약합니다(검증 완료). 따라서 <b>광범위 페인 키워드로 진입시킨 뒤 Pain Reframe로 코어 진영에 전환</b>하는 것이 콘텐츠 전략의 핵심입니다.</p>
+
+<h4>5 콘텐츠 페르소나 + 매칭 훅</h4>
+<table>
+<tr><th>#</th><th>페르소나</th><th>매칭 훅</th></tr>
+<tr><td>P1</td><td>20대 Glass Skin 추구자</td><td>"Korean K-pharmacy gentle glow — start before you need retinol."</td></tr>
+<tr><td>P2</td><td>20대 Sensitive K-beauty 헤비유저</td><td>"K-pharmacy ≠ K-beauty lifestyle. Real actives at Korean clinical dose."</td></tr>
+<tr class="tot"><td>P3 ★</td><td>30+ Retinol Refugee (Core)</td><td>"MFDS Brightening + Anti-Wrinkle — without retinol burn."</td></tr>
+<tr><td>P4</td><td>30+ Vegan Active Hunter</td><td>"Vegan that actually works. K-pharmacy with vegan microcrystal."</td></tr>
+<tr><td>P5</td><td>임신·수유기 Anti-Aging 추구자</td><td>"Pregnancy-safe anti-aging — Korean MFDS-approved Adenosine."</td></tr>
+</table>
+
+<!-- 3 -->
+<h2 id="s3">3. 전략 핵심 결정</h2>
+<h3>3-1. North Star — 미국 매출 볼륨</h3>
+<p>2026 단일 목표는 미국 매출 볼륨 극대화입니다. 평가 기준은 <b>판매 볼륨 + 광고효율(MER) 도달 여부</b>입니다.</p>
+<h4>목표가 다르면 전략이 다릅니다</h4>
+<table>
+<tr><th>축</th><th>흑자 목표라면</th><th>볼륨 목표(우리)</th></tr>
+<tr><td>가격</td><td>마진 보존, 할인 최소</td><td>공격적 프로모·번들로 회전</td></tr>
+<tr><td>광고</td><td>흑자선까지만</td><td>목표 효율까지 적극 집행</td></tr>
+<tr><td>리뷰</td><td>자연 누적</td><td>적극 투자</td></tr>
+<tr><td>재고</td><td>보수적</td><td>선제 확보</td></tr>
+</table>
+<div class="box"><b>예산 안전장치(브레이크)</b><br>
+① 광고예산은 메타 일 ₩362,500·아마존 일 ₩108,750 수준에서 <b>효율이 오를 때만 단계적으로 증액</b>합니다.<br>
+② <b>광고효율(MER)이 목표를 2개월 연속 미달하면</b> 채널·소재·예산을 즉시 재검토합니다.</div>
+
+<h3>3-2. 왜 볼륨인가 — 볼륨은 지렛대입니다</h3>
+<div class="lever">
+<div class="node dark big">미국 매출 볼륨 ↑ <span class="small">(2026 구축)</span></div>
+<div class="arrow">↓</div>
+<div class="row3">
+<div class="lcard"><div class="ic">🌏</div><b>① 타국 진출</b>UAE·사우디<br><span class="small">미국 실적이 진입 신뢰자산</span></div>
+<div class="lcard"><div class="ic">🤝</div><b>② B2B 협상 카드</b><br><span class="small">"미국 월 N개" = 단가·물량 협상력</span></div>
+<div class="lcard"><div class="ic">🏬</div><b>③ 오프라인 입점</b><br><span class="small">볼륨·리뷰가 바이어 설득 근거</span></div>
+</div>
+<div class="arrow">↓</div>
+<div class="node big" style="border-color:var(--green);background:var(--lemon-bg)">2027+ B2B·오프라인에서 <b>실질 순이익 회수</b></div>
+</div>
+
+<h3>3-3. 채널 전략 — 80 / 20</h3>
+<table>
+<tr><th></th><th>Amazon (+Meta) 80%</th><th>TikTok 20%</th></tr>
+<tr><td>역할</td><td>메인 전환·매출 엔진</td><td>알고리즘 학습·딜 자격 유지</td></tr>
+<tr><td>예산</td><td>메타 일 ₩217,500→₩362,500 / 아마존 자동광고 일 ₩108,750 고정</td><td>GMV Max 일 ₩13,000 고정</td></tr>
+<tr><td>이유</td><td>1개당 남는 돈이 가장 크고, 리뷰 54·CVR 2.57%로 살아있는 PDP 보유</td><td>CVR 0.14% — 전환 시스템부터 구축</td></tr>
+</table>
+<p><b>역할 분담:</b> 아마존은 이미 구매 의향이 있는 검색 수요를 <i>수확</i>하고, Meta는 <b>가설 기반 소재 발견(소재가 곧 타겟팅)</b>으로 신규 수요를 <i>창출</i>해 아마존으로 유입시킵니다.</p>
+<div class="box"><b>메타 운영 원칙 — Creative-Led Hypothesis Discovery</b><br><b>광고는 도박이 아니라 시스템입니다.</b> 타겟팅이 자동화된 시대에는 <b>소재가 곧 타겟팅</b>입니다. → 히어로 페르소나 1개(Anti-Retinol Refugee)에 집중하고, <b>5앵글 × 훅3 = 주 5실험</b>으로 고객·메시지를 동시에 발견해, 이긴 컨셉만 한 캠페인으로 합쳐 예산을 몰아줍니다. <span class="def">(실행 상세 §5)</span></div>
+
+<h3>3-4. SKU 전략 — 세럼 집중(P1~2) → 번들·확장(2027)</h3>
+<ul>
+<li><b>Phase 1~2:</b> 세럼을 히어로 SKU로 집중 마케팅합니다. 번들 할인으로 객단가를 높이는 작업은 병행합니다.</li>
+<li><b>2027:</b> 레몬 엑소좀 시장 학습과 함께 번들 마케팅을 본격화하며, SKU 2종 추가가 예상되어 4-SKU 번들 세트 등으로 다양화합니다.</li>
+</ul>
+
+<h3>3-5. 측정 체계</h3>
+<p><b>① 틱톡샵</b> — 노출·클릭·전환·매출이 모두 자체 추적되므로 효율을 독립적으로 바로 확인합니다.<br>
+<b>② 아마존 + 메타</b> (Phase 2까지·오가닉 0 가정):<br>
+&nbsp;&nbsp;• 아마존 효율 = 아마존 PPC 매출 ÷ PPC 비용 <span class="def">(PPC=아마존 검색광고)</span><br>
+&nbsp;&nbsp;• <b>메타 효율 = (전체 아마존 매출 − 아마존 PPC 매출) ÷ 메타비용</b><br>
+&nbsp;&nbsp;• <span class="warn">운영 규칙: 자사 브랜드명 PPC 미집행</span> — 메타가 유입시킨 브랜드 검색이 PPC로 집계되는 것을 방지<br>
+&nbsp;&nbsp;• 2027 오가닉이 커지면 베이스라인 대비 증가분(리프트) 측정으로 전환</p>
+<p><span class="def">CTR=클릭률 · 훅률=3초 시청률 · MER=전체 매출÷전체 광고비 · BRB=Brand Referral Bonus(référral 10% 환급)</span></p>
+<div class="box"><b>왜 이렇게 측정하나요?</b><br>Meta→Amazon은 아마존이 "어떤 광고가 판매를 일으켰는지"를 정확히 알려주지 않아, 광고 단위 매출(ROAS)을 신뢰하기 어렵습니다. 그래서 <b>소재는 클릭 진단 사다리(훅·hold·CTR)로 평가하고, 사업 전체는 MER로 판단</b>합니다.</div>
+
+<h3>3-6. 페이즈</h3>
+<p>Phase 1(6/2~10/7)은 구축기, Phase 2(10/7~12/31)는 수확기입니다.</p>
+
+<!-- 4 -->
+<h2 id="s4">4. 마케팅 캘린더 & 페이즈</h2>
+<h3>4-1. 2026~2027 전체 캘린더 (시간 흐름)</h3>
+<p class="small">빅프로모·뷰티 행사를 기준으로 운영합니다. 위에서 아래로 시간이 흐릅니다.</p>
+<div class="vcal">
+<div class="vphase" style="background:var(--lemon)">PHASE 1 · 구축기 (6/2 – 10/7)</div>
+<div class="vrow"><span class="vd">6/8</span><span>Meta 광고 착수(4단계 발견 시퀀스) · 레몬더마 써클 운영 시작</span></div>
+<div class="vrow"><span class="vd">6/15</span><span>전담 디자이너 입사 → 광고 소재 제작·PDP 수정·SNS 운영안 기획</span></div>
+<div class="vrow"><span class="vd">6/18</span><span>TikTok 6.18 메가세일 (고정 예산)</span></div>
+<div class="vrow"><span class="vd">6/22</span><span>SNS 운영 시작 (진정성 콘텐츠 업로드)</span></div>
+<div class="vrow"><span class="vd">6/23–26</span><span>Amazon Prime Day → <span class="warn">라이브 테스트</span></span></div>
+<div class="vrow"><span class="vd">7/13–15</span><span>Cosmoprof Vegas (B2B) — 정찰 옵션</span></div>
+<div class="vrow"><span class="vd">9월</span><span>프라임 빅딜 준비 — 재고 생산 착수·딜 등록·랜딩 점검</span></div>
+<div class="vphase" style="background:var(--green);color:#fff">PHASE 2 · 수확기 (10/7 – 12/31)</div>
+<div class="vrow star"><span class="vd">10/7–8</span><span><b>Prime Big Deal Days</b> — 첫 수확</span></div>
+<div class="vrow star"><span class="vd">11/27</span><span><b>Black Friday</b> — 최대 수확</span></div>
+<div class="vrow star"><span class="vd">11/30</span><span><b>Cyber Monday</b></span></div>
+<div class="vrow star"><span class="vd">12월</span><span>홀리데이 시즌 — 수확 지속</span></div>
+<div class="vphase" style="background:var(--lemon-d)">2027 · 분기 페이즈</div>
+<div class="vrow"><span class="vd">Q1</span><span>1월 Cosmoprof Miami(B2B) · 3월 MakeUp in LA·Sephoria(소비자) · New Year 수요</span></div>
+<div class="vrow"><span class="vd">Q2</span><span>4월 TikTok 4.4 · 5/9 Mother's Day · 6월 Prime Day</span></div>
+<div class="vrow"><span class="vd">Q3</span><span>7월 Prime Day · Cosmoprof Vegas(B2B)</span></div>
+<div class="vrow"><span class="vd">Q4</span><span>10월 Prime Big Deal · 11월 BF/CM · 12월 홀리데이</span></div>
+</div>
+
+<!-- 5 -->
+<h2 id="s5">5. Phase 1 플랜 (6/2 ~ 10/7 · 약 18주)</h2>
+<div class="hero"><b>핵심 원칙:</b> "레몬 엑소좀"을 시장에 새로 교육하는 데 비용을 쓰지 않습니다. <b>이미 형성된 수요 흐름에 올라타</b> 비용을 절약합니다 — 레티놀 대안·비건·민감 스킨케어·Anua/BoJ 이탈 고객.</div>
+<h3>5-1. 목표</h3>
+<p class="small">Phase 1의 <b>1차 목표는 소재를 빠르게 검증하는 클릭 지표(진단 사다리)</b>입니다. 매출·효율은 2차(사업 결과)로 §7에서 추적합니다.</p>
+<table>
+<tr><th>구분</th><th>지표</th><th>목표</th></tr>
+<tr class="tot"><td colspan="3">1차 · 소재 검증 (클릭 진단 사다리)</td></tr>
+<tr><td>소재</td><td>훅률(3초) · hold(15초) · CTR</td><td><b>30%+ · 50%+ · 3%+</b></td></tr>
+<tr><td>속도</td><td>주간 실험 · 히어로 소재 누적</td><td><b>주 5실험 지속 · 5개</b></td></tr>
+<tr class="tot"><td colspan="3">2차 · 사업 결과 (§7에서 추적)</td></tr>
+<tr><td>볼륨</td><td>일 판매수 / CVR(아마존·틱톡)</td><td>~38개 / 3.5%·1.0%</td></tr>
+<tr><td>효율·관계</td><td>광고효율 MER / 써클 인플루언서</td><td>~2.0 / 10명</td></tr>
+</table>
+
+<h3>5-2. 메타 광고 — Creative-Led Hypothesis Discovery</h3>
+<p>iOS14 이후 타겟팅은 자동화됐고, <b>"누가 고객인지·어떤 메시지가 먹히는지를 소재가 찾아냅니다"</b>(메시지의 구체성이 타겟팅을 함). 위닝 소재는 통계적으로 약 5%로 희귀하므로, 한 방 추측이 아니라 <b>구조화된 가설 발견 시스템</b>으로 이깁니다. <span class="def">(Meta Andromeda 공식 / Motion Creative Benchmarks 2026, 광고 55만 분석)</span></p>
+
+<h4>① 히어로 페르소나 1개 집중</h4>
+<p>Phase 1은 가장 유력하고 나머지를 포괄하는 한 페르소나에 집중합니다 — <b>Anti-Retinol Refugee</b>(브리프 P3★): "클린·비건은 약해 답답하지만 자극 강한 임상은 무서워 못 쓰는 사람." 이 페인이 서브 4개(글래스스킨·K-약국·비건액티브·임신안전)를 욕구 차원에서 포괄합니다. → <b>Meta 타겟은 브로드로 두고, 소재가 이 사람에게 말하게</b> 합니다. 소재가 타겟팅을 하면 Meta가 반응자를 찾아줍니다.</p>
+<div class="box"><b>"고객도 모르는데 왜 하나만?" — 모르기 때문에 하나입니다</b><br>
+• <b>메타 학습은 '신호의 일관성'으로 빨라집니다.</b> 여러 페르소나를 동시에 태우면 메타 AI가 "이 브랜드가 누굴 원하는지"를 못 읽어 학습이 흩어지고 CPA가 오릅니다. 한 페르소나에 여러 앵글·훅을 태우면 <b>겨냥점이 하나</b>라 신호가 모여, 메타가 그 사람의 룩어라이크를 빠르게 찾습니다.<br>
+• <b>고객을 모를수록 좁혀야 빨리 압니다.</b> 5명을 얕게 보면 다 신호가 약해 아무것도 확신 못 합니다. 1명을 깊게 파면 그 1명은 확실히 알게 됩니다 — 저예산일수록 집중이 발견을 가속합니다.<br>
+• <b>좁히되 좁지 않습니다.</b> 코어의 페인이 서브 4개를 포괄하고, 5앵글 변주가 인접 페르소나까지 건드립니다.</div>
+
+<h4>② 실험 설계 — 5앵글 × 훅3 = 주 5실험</h4>
+<p>앵글 라이브러리(페인리드·권위·교육·스위치·데모)를 이 페르소나에 맞춰 앵글당 훅 3변주 → <b>주 5컨셉 · 15소재 · 월 ~60소재</b>(업계 고성과 볼륨선). 훅은 <b>광범위 페인 입구</b>("따갑다·잔주름·비건인데 효과 없다") → 해결 reframe("순한데 작동")으로 진입합니다. 마스터 훅: "Feel the active. Not the burn."</p>
+<p class="small"><b>왜 앵글당 훅 3개?</b> 컨셉(앵글)과 훅(첫 3초)은 다른 레버입니다 — 가설은 그대로 두고 <b>입구(훅)만 바꿔</b> 어떤 진입이 그 사람을 멈추게 하는지를 싸고 빠르게 찾습니다. <span class="def">근거: Meta Andromeda(공식) · Motion 광고 55만 분석 · Pilothouse P-D-A</span></p>
+<p class="small"><b>5앵글 = 5가설 · 각 앵글의 대표 훅 (당장 집행 가능)</b></p>
+<table>
+<tr><th>앵글</th><th>검증 가설</th><th>대표 훅 예시</th></tr>
+<tr><td>① 페인-리드</td><td>레티놀 자극 고통이 전환을 만든다</td><td>"Sensitive skin can't take retinol — so I switched."</td></tr>
+<tr><td>② 권위·파운더</td><td>K-약국·자체랩 신뢰가 구매를 만든다</td><td>"This isn't K-beauty. It's K-Pharmacy."</td></tr>
+<tr><td>③ 교육·메커니즘</td><td>성분 작동 원리가 설득한다</td><td>"Behind the science: the Korean lab making lemon exosomes."</td></tr>
+<tr><td>④ 스위치스토리</td><td>이탈 서사가 공감을 만든다</td><td>"I left Anua/BoJ — and finally saw results."</td></tr>
+<tr><td>⑤ 데모·루틴</td><td>질감·글로우 시연이 욕구를 자극한다</td><td>"Glass skin. No burn." (질감 ASMR)</td></tr>
+</table>
+<p class="small">각 앵글마다 위 훅을 3가지로 변주 → 클릭으로 이긴 앵글·훅을 가려냅니다. <span class="def">(Ad Library 53개 브랜드는 앵글 영감 소싱용 — 위너는 실제 집행 성과로 정의)</span></p>
+
+<h4>③ 진단 사다리로 학습 (매출 데이터 없이도)</h4>
+<p>클릭단 지표가 각각 다른 질문에 답합니다 — <b>훅률</b>=앵글이 맞는 사람을 멈췄나 / <b>hold</b>=컨셉이 붙잡았나 / <b>CTR</b>=메시지에 행동의향. (광고별 매출·ROAS는 보지 않음)</p>
+<div class="flow">
+<div class="node">Day 1<br><span class="small">훅률 20%+ · 확실히 안 되는 소재만 즉시 중단</span></div><div class="arrow">→</div>
+<div class="node">Day 3<br><span class="small">CTR≥2% · CPC≤₩2,320 (+훅 25%↑)</span></div><div class="arrow">→</div>
+<div class="node dark">Day 7 히어로<br><span class="small">훅≥30% · CTR≥3% · hold≥50%</span></div>
+</div>
+<p class="small">클릭단은 후보 스크리닝이지 최종 위너 확정이 아닙니다. 사업 효율(MER)은 §3-5 잔차법(전체 아마존−아마존 PPC)으로 전구간 추적합니다.</p>
+
+<h4>④ 캠페인 구조 — 컨셉별로 따로 실험 → 이긴 것만 통합</h4>
+<div class="flow">
+<div class="node" style="border-color:var(--lemon)">🧪 컨셉별 실험방<br><span class="small">광고세트마다 컨셉 1개씩 따로(훅 2~3개) · 같은 예산으로 공정 비교</span></div>
+<div class="arrow">→ 이긴 것만 →</div>
+<div class="node dark">🏆 통합 캠페인<br><span class="small">이긴 컨셉만 한 캠페인으로 합쳐 예산 몰아주기 (저예산일수록 분산 금지)</span></div>
+</div>
+<p class="small">광고는 학습 보호를 위해 끄지 않고, 신규 소재 실험은 실험방에서만 교체합니다.</p>
+
+<h4>⑤ 출발 — 이미 쌓인 보유자산으로 즉시 + AI 병렬</h4>
+<p>맨땅에서 시작하지 않습니다. <b>이미 확보한 촬영 소스</b>만으로도 첫 5실험을 당장 착수할 수 있습니다:</p>
+<table>
+<tr><th>보유 소스</th><th>분량</th><th>1차 투입 앵글</th></tr>
+<tr><td>공장·실험실 클립</td><td>~20개</td><td>교육·권위</td></tr>
+<tr><td>약국 스케치 + 일반인 인터뷰</td><td>10 + 2</td><td>권위(K-약국)</td></tr>
+<tr><td>세럼·크림 2-step 사용 영상</td><td>3인</td><td>페인리드·스위치</td></tr>
+<tr><td>스튜디오 질감 클립</td><td>~20개</td><td>데모·글로우</td></tr>
+<tr><td>Amazon 리뷰 + 어필리에이트 UGC</td><td>54 + ~600</td><td>소셜프루프</td></tr>
+<tr><td>화이트리스트 인플루언서</td><td>5명(제작 2주)</td><td>전 앵글(스케일)</td></tr>
+</table>
+<p class="small">W1은 위 보유 소스로 즉시 5실험을 착수하고, <b>AI 소재를 같은 실험방에 병렬 투입</b>해 AI 활용 가능성을 라이브로 검증합니다(별도 예산 낭비 0).</p>
+<p class="small"><b>고객 데이터 누적:</b> 매 실험마다 "누가 어떤 앵글·훅에 반응하나"가 메타에 쌓여 리타겟·룩어라이크 자산이 되고, §1의 "고객 데이터 부족"이 채워집니다.</p>
+
+<h4>⑥ 소재 공급망 — 속도가 곧 경쟁력</h4>
+<p>위닝 소재가 희귀하므로 <b>빠르고 싼 소재 공급망이 핵심 경쟁력(해자)</b>입니다. 2인 팀이 물량을 내는 길 — <b>모듈러 재편집</b>(본체 1개 → 훅·앵글·자막 재조합) · <b>화이트리스트 크리에이터</b>(써클 5인) · <b>AI 양산</b>(스크립트→UGC: Arcads·Creatify / 소스 대량변형: CapCut·OpusClip / 정적: AdCreative) · <b>인하우스 디자이너</b>(6/15). <b>매주 같은 앵글에 훅만 바꾼 소재를 AI로 양산</b>해 실험방에 투입합니다. 월 60+ 소재 테스트는 월 20 미만 대비 ROAS 약 2.8배입니다.</p>
+
+<h3>5-3. 전환 · 인플루언서 · 리뷰</h3>
+<h4>전환(CRO)</h4>
+<ul><li>틱톡 PDP 전면 보강이 1순위입니다(0.14%→1%): 리뷰·UGC 상단 노출. 아마존은 메인이미지·A+ 개선(2.57%→3.5%).</li></ul>
+<h4>리뷰</h4>
+<ul><li>아마존은 세팅 완료로 자연 누적됩니다. 틱톡은 리뷰 수와 CVR 상관을 관찰하며 유료 리뷰 작업을 단계적으로 투입합니다.</li></ul>
+<h4>UGC · 인플루언서 엔진 (레몬더마 써클)</h4>
+<p class="small">기존 어필리에이트 ~600개 중 광고 재활용 &lt;5개 → 무차별 시딩(양만 있고 통제·장기성 없음) 대신 <b>좁고 깊은 큐레이션 코어 엔진</b>으로 재설계했습니다. <b>타겟 = ~5만 이하 emerging 뷰티 크리에이터</b>(매크로/메가 아님) — creator-led로 <i>함께 성장</i>. 가치 모델 <b>"We grow you. You grow us."</b> — 첫 협업은 돈이 아닌 가치(도달·코칭·소속)로 끌어들이고, 광고비는 성과 검증 후에만 투입합니다. <span class="def">상세 운영안: lemonderma-circle/operation-plan.md</span></p>
+<div class="box"><b>Circle Base (전원 공통 · Lv.1부터)</b><br>제품 + IG 콜라보·피처 노출 + <b>게시물별 AI 콘텐츠 피드백·아이디어</b>(거의 0비용 · 멤버 리텐션 + 히어로 소재 풀 강화 이중효과) + <b>어필리에이트 커미션 30%</b>(업계 10~15%의 2배 · 성과형 변동비 · 자연판매 한정 — Spotlight 부스팅 판매는 커미션 없음·광고비 회사 부담) + Spotlight 자격.</div>
+<div class="box"><b>The Spotlight — 검증 후 증액 (creator-led)</b><br>광고 부스팅을 '상위 티어 정적 보상'이 아니라 <b>오가닉 스파크를 보인 누구나 받는 게이트형</b>으로 운용 → §5-2 '컨셉 실험방 → 통합 캠페인'과 동일 구조: 🎬 <b>Post</b>(공짜 관찰) → ⚡ <b>Spark</b>(소액 부스트·클릭 게이트 G1) → 🚀 <b>Scale</b>(통과 시 증액·화이트리스트, 미달 시 소액 종료). 우리 광고비로 <i>그들의</i> 도달이 커지는 것 = 크리에이터 1순위 욕구.</div>
+<div class="ladder">
+<div class="step"><div class="lv" style="background:#cfe4b6;color:#3a5e22">1</div><div class="bd"><b>Glow</b> · 제품 1개 협찬<br><span class="up">↑ 승급: 누적 조회 2,000+ 또는 1개+ 판매</span></div></div>
+<div class="step"><div class="lv" style="background:#a9d189">2</div><div class="bd"><b>Shine</b> · 1세트 협찬<br><span class="up">↑ 승급: 누적 조회 1만+ 또는 5개+ 판매</span></div></div>
+<div class="step"><div class="lv" style="background:#7fbb5c">3</div><div class="bd"><b>Radiance</b> · 전제품 3개월 매달 1세트 + 신제품 무료 + 우선 Spotlight<br><span class="up">↑ 승급: 누적 조회 10만+ 또는 50개+ 판매</span></div></div>
+<div class="step"><div class="lv" style="background:#5c9e3c">4</div><div class="bd"><b>Luminary</b> · 6개월 매달 2세트 + 신제품 무료 + 특별 프로모딜 + 서울투어 + 전세계 런칭 우선초대 + 우선 Spotlight<br><span class="up">↑ 승급: 누적 조회 100만+ 또는 100개+ 판매</span></div></div>
+<div class="step"><div class="lv" style="background:#3f7a26">5</div><div class="bd"><b>Icon</b> · 매달 3세트 + 신제품 무료 + 특별 프로모딜 + 서울투어 + 전세계 런칭 우선초대 + VIP 프라이빗 이벤트·경비 지원 + 본사·실험실 방문 + 한국 앰버서더 콜라보 + 우선 Spotlight</div></div>
+</div>
+<div class="box" style="background:var(--lemon-bg);border-color:var(--lemon-d)"><b>어떻게 모으고 굴리나 — 소싱·운영</b><br>
+<b>소싱 3경로:</b> ① 기존 시딩풀 ~600에서 콘텐츠 결이 맞는 크리에이터 발굴 · ② 타겟 핸들 아웃리치(콜드 DM·메일) · ③ 인바운드 신청 폼.<br>
+<b>운영 리듬:</b> 온보딩 → 콘텐츠 가이드·AI 코칭 → <b>게시율 70% 목표</b> 관리 → 오가닉 스파크 추적 → Spotlight 게이트. <b>12주 로드맵</b>으로 코어 풀을 단계적으로 구축합니다. <span class="def">상세 운영안: operation-plan.md</span></div>
+<div style="text-align:center;margin:20px 0 6px;">
+  <a href="https://vdvia.github.io/lemonderma-circle/" target="_blank" rel="noopener" style="display:inline-block;background:var(--lemon);color:var(--ink);border:1.5px solid var(--lemon-d);border-radius:30px;padding:13px 32px;font-weight:800;font-size:15px;text-decoration:none;box-shadow:0 2px 8px rgba(0,0,0,.14);">🍋 레몬더마 써클 인플루언서 제안서 보기 →</a>
+  <div class="small" style="margin-top:7px;">크리에이터가 실제로 받는 제안서 (데모) · 타겟 = ~5만 emerging 뷰티 크리에이터 · 커미션 30%</div>
+</div>
+<h4>SNS 운영 (6/22~)</h4>
+<ul><li>전담 디자이너 합류로 6/22부터 공식 SNS를 운영합니다. <b>레몬더마의 진정성이 담긴 콘텐츠</b>(연구소·성분·창업자 서사 등)를 지속 업로드해 브랜드 신뢰와 커뮤니티를 키웁니다.</li></ul>
+
+<h3>5-4. 실행 타임라인 (동시 진행 트랙)</h3>
+<div class="gchart">
+<div class="gmh"><div class="gsp"></div><div class="m" style="flex:30">6월</div><div class="m" style="flex:31">7월</div><div class="m" style="flex:31">8월</div><div class="m" style="flex:30">9월</div><div class="m" style="flex:10">10월</div></div>
+<div class="gtrack"><div class="gtlabel">메타 광고</div><div class="gzone">
+  <div class="gbar" style="left:5.5%;width:94.5%;background:var(--green-d)">6/8~ 주 5실험 · 컨셉별 실험방 → 이긴 컨셉 통합</div></div></div>
+<div class="gtrack"><div class="gtlabel">PDP 수정</div><div class="gzone">
+  <div class="gbar" style="left:16.4%;width:83.6%;background:#8aae5a">6/22~ PDP 수정 (디자이너 합류 후)</div></div></div>
+<div class="gtrack"><div class="gtlabel">SNS 운영</div><div class="gzone">
+  <div class="gbar" style="left:16.4%;width:83.6%;background:#a9c97f">6/22~ 진정성 콘텐츠 업로드</div></div></div>
+<div class="gtrack"><div class="gtlabel">레몬더마 써클</div><div class="gzone">
+  <div class="gbar" style="left:5.5%;width:94.5%;background:#c4d68f;color:#3a5e22">6/8~ 인플루언서 모집·관리</div></div></div>
+<div class="gtrack"><div class="gtlabel">빅딜 준비</div><div class="gzone">
+  <div class="gbar" style="left:71.9%;width:28%;background:var(--lemon-d);color:#1f1f1f">9월~ 재고·딜등록·랜딩</div></div></div>
+</div>
+<p class="small">메타 광고는 6/8부터 <b>주 5실험 루프</b>로 상시 가동 — 고객·메시지·히어로 소재를 동시에 발견합니다.</p>
+
+<h3>5-5. 측정·보고</h3>
+<table>
+<tr><th>무엇을 보나</th><th>지표</th></tr>
+<tr><td>광고 1개가 좋은가</td><td>훅률 · hold rate · CTR (진단 사다리)</td></tr>
+<tr><td>사업이 수익을 내는가</td><td>MER · 총 주문 수</td></tr>
+<tr><td>메타가 실제 얼마 기여하나</td><td>전체 아마존 − 아마존 PPC (채널 분리)</td></tr>
+<tr><td>커뮤니티·SNS 성장</td><td>써클 인플루언서 수 · SNS 방문자 수 · 평균 조회수 · 좋아요 · 댓글 수</td></tr>
+</table>
+
+<h3>5-6. 예산</h3>
+<div class="bars">
+<div class="barrow"><span class="lbl">Meta</span><div class="track"><div class="fill" style="width:100%"></div></div><span class="val">~₩45M</span></div>
+<div class="barrow"><span class="lbl">Amazon</span><div class="track"><div class="fill" style="width:30%"></div></div><span class="val">~₩13.8M</span></div>
+<div class="barrow"><span class="lbl">TikTok</span><div class="track"><div class="fill" style="width:4%"></div></div><span class="val">~₩1.6M</span></div>
+<div class="barrow"><span class="lbl">써클운영비</span><div class="track"><div class="fill dark" style="width:6%"></div></div><span class="val">₩2.9M</span></div>
+</div>
+<p class="small">발견기엔 메타 일 ₩217,500(주 5컨셉 실험) → 이긴 컨셉 통합 시 ₩362,500 / 아마존 일 ₩108,750 고정 / 틱톡 일 ₩13,000 고정. <b>Phase 1 ≈ ₩63M</b>.</p>
+
+<!-- 6 -->
+<h2 id="s6">6. Phase 2 플랜 (10/7 ~ 12/31 · 수확기)</h2>
+<div class="hero"><b>발견은 종료되었습니다. 검증된 엔진을 빅딜에 집중 투입해 볼륨을 폭발시킵니다.</b> 빅딜 기간에는 효율 기준을 일시 완화합니다(볼륨 우선).</div>
+<h3>6-1. 목표</h3>
+<table>
+<tr><th>지표</th><th>Phase 2 목표</th></tr>
+<tr><td>일 판매수 (12월)</td><td><b>~65개</b> (월 ~2,000)</td></tr>
+<tr><td>빅딜 피크일 판매</td><td>~150개+</td></tr>
+<tr><td>아마존 CVR / 틱톡 CVR</td><td>4.5%+ / 1.5%+</td></tr>
+<tr><td>틱톡 리뷰</td><td><b>100건+</b></td></tr>
+<tr><td>히어로 소재</td><td><b>10개+</b></td></tr>
+<tr><td>써클 인플루언서</td><td><b>20명+</b> (Lv3+ 3명)</td></tr>
+<tr><td>광고효율 MER</td><td>12월 <b>2.5</b></td></tr>
+</table>
+<h3>6-2. 수확 리듬</h3>
+<div class="flow">
+<div class="node">2개월 전 기획</div><div class="arrow">→</div>
+<div class="node">6~8주 전 빌드<br><span class="small">재고·소재·딜등록</span></div><div class="arrow">→</div>
+<div class="node">2~3주 전 워밍업<br><span class="small">리타겟 풀 적립</span></div><div class="arrow">→</div>
+<div class="node dark">딜 피크 스파이크</div><div class="arrow">→</div>
+<div class="node">딜 후 sustain</div>
+</div>
+<h3>6-3. 실행 (수확 모드)</h3>
+<ul>
+<li><b>메타:</b> 검증된 위너 컨셉을 통합 캠페인으로 합쳐 예산 집중. 워밍업→스파이크→sustain. 빅딜기 효율 기준 완화(볼륨 우선).</li>
+<li><b>전환:</b> PDP에 딜 배지·쿠폰·번들 강조, 트래픽 폭증 대비.</li>
+<li><b>써클:</b> Lv3+ 코어가 빅딜 콘텐츠 집중 + 화이트리스트 부스팅. 딜 맞춤 UGC 사전 제작.</li>
+<li><b>리뷰:</b> 빅딜 직전 리뷰 수 점검(딜 전환율에 직결).</li>
+<li><b>재고:</b> 빅딜 6~8주 전 입고 완료(§7 직결).</li>
+</ul>
+<h3>6-4. 예산 (플랫폼별 · 딜 비용·써클 운영비 포함)</h3>
+<div class="bars">
+<div class="barrow"><span class="lbl">Meta</span><div class="track"><div class="fill" style="width:100%"></div></div><span class="val">₩47.7M</span></div>
+<div class="barrow"><span class="lbl">Amazon</span><div class="track"><div class="fill" style="width:45%"></div></div><span class="val">₩21.5M*</span></div>
+<div class="barrow"><span class="lbl">TikTok</span><div class="track"><div class="fill" style="width:9%"></div></div><span class="val">₩4.1M*</span></div>
+<div class="barrow"><span class="lbl">써클운영비</span><div class="track"><div class="fill dark" style="width:15%"></div></div><span class="val">₩7.25M</span></div>
+</div>
+<p class="small">* 딜 운영비 포함. <b>Phase 2 ≈ ₩80M</b> · <b>2026 하반기 총 마케팅비 ≈ ₩143M</b>.</p>
+
+<!-- 7 -->
+<h2 id="s7">7. 예산 · 재무 · 현금흐름</h2>
+<p class="small">들어오는 돈(매출) → 나가는 돈(비용) → 재고 타이밍 → 월별 현금흐름 → 필요 운전자금 순으로 봅니다.</p>
+<h3>7-1. 가정</h3>
+<div class="asm">
+<div><b>객단가</b> ₩39,150 (세럼·크림 평균)</div>
+<div><b>공헌이익률</b> 58%</div>
+<div><b>리드타임</b> 7주 (용기 1만개씩 제작 완료)</div>
+<div><b>시작 재고</b> 6,000개 (세럼·크림 각 3,000)</div>
+<div><b>광고효율</b> MER 0.8 → 2.5 우상향</div>
+<div><b>고정비</b> 월 ₩370만 (툴 ₩70만 + 기타 ₩300만)</div>
+</div>
+
+<h3>7-2. 들어오는 돈 — 월별 매출 (normal)</h3>
+<div class="bars">
+<div class="barrow"><span class="lbl">6월</span><div class="track"><div class="fill" style="width:13%"></div></div><span class="val">₩10.4M · 9개/일</span></div>
+<div class="barrow"><span class="lbl">7월</span><div class="track"><div class="fill" style="width:22%"></div></div><span class="val">₩17.7M · 15개</span></div>
+<div class="barrow"><span class="lbl">8월</span><div class="track"><div class="fill" style="width:28%"></div></div><span class="val">₩22.3M · 18개</span></div>
+<div class="barrow"><span class="lbl">9월</span><div class="track"><div class="fill" style="width:31%"></div></div><span class="val">₩24.7M · 21개</span></div>
+<div class="barrow"><span class="lbl">10월</span><div class="track"><div class="fill" style="width:58%"></div></div><span class="val">₩45.8M · 38개</span></div>
+<div class="barrow"><span class="lbl">11월</span><div class="track"><div class="fill" style="width:86%"></div></div><span class="val">₩67.7M · 58개</span></div>
+<div class="barrow"><span class="lbl">12월</span><div class="track"><div class="fill" style="width:100%"></div></div><span class="val">₩78.7M · 65개</span></div>
+</div>
+<p class="small">normal 합계 ≈ ₩267M / ~6,830개 · bad(70%) ≈ ₩187M · good(130%) ≈ ₩348M.</p>
+
+<h3>7-3. 나가는 돈 — 총 비용 구성</h3>
+<div class="bars">
+<div class="barrow"><span class="lbl">광고비</span><div class="track"><div class="fill" style="width:100%"></div></div><span class="val">₩128M</span></div>
+<div class="barrow"><span class="lbl">재고생산</span><div class="track"><div class="fill" style="width:75%"></div></div><span class="val">₩96M</span></div>
+<div class="barrow"><span class="lbl">고정비</span><div class="track"><div class="fill" style="width:20%"></div></div><span class="val">₩26M</span></div>
+<div class="barrow"><span class="lbl">써클운영비</span><div class="track"><div class="fill" style="width:8%"></div></div><span class="val">₩10M</span></div>
+<div class="barrow"><span class="lbl">딜운영</span><div class="track"><div class="fill" style="width:4%"></div></div><span class="val">₩5M</span></div>
+</div>
+<p class="tot" style="padding:6px 10px;border-radius:6px;">총 현금 유출 ≈ ₩265M — 재고 ₩96M은 자산(대부분 2027 판매분)입니다.</p>
+
+<h3>7-4. 재고 — 언제 얼마나 추가하나</h3>
+<div class="bars">
+<div class="barrow"><span class="lbl">6월말</span><div class="track"><div class="fill" style="width:96%"></div></div><span class="val">5,733개</span></div>
+<div class="barrow"><span class="lbl">8월말</span><div class="track"><div class="fill" style="width:79%"></div></div><span class="val">4,711개</span></div>
+<div class="barrow"><span class="lbl">10월말</span><div class="track"><div class="fill" style="width:49%"></div></div><span class="val">2,911개</span></div>
+<div class="barrow"><span class="lbl">11월말</span><div class="track"><div class="fill red" style="width:20%"></div></div><span class="val red">1,181개 ⚠</span></div>
+</div>
+<div class="hero"><b>추가 생산:</b> <b>9월 말 착수</b>(7주 뒤 ~11월 중 입고) → BF/CM·홀리데이 커버. 수량 <b>세럼 1만 + 크림 1만 = 2만 개</b>(제작 완료 용기·1회 생산), 비용 ~<b>₩96M</b>. 세럼이 먼저 소진되므로 <b>9월 말이 데드라인</b>입니다.</div>
+
+<h3>7-5. 월별 현금흐름 (들어오는 돈 − 나가는 돈, 누적 · normal)</h3>
+<div class="bars">
+<div class="barrow"><span class="lbl">6월</span><div class="track"><div class="fill red" style="width:7%"></div></div><span class="val red">−₩9.9M</span></div>
+<div class="barrow"><span class="lbl">7월</span><div class="track"><div class="fill red" style="width:13%"></div></div><span class="val red">−₩17.7M</span></div>
+<div class="barrow"><span class="lbl">8월</span><div class="track"><div class="fill red" style="width:16%"></div></div><span class="val red">−₩22.5M</span></div>
+<div class="barrow"><span class="lbl">9월</span><div class="track"><div class="fill red" style="width:86%"></div></div><span class="val red">−₩120M ⚠최저</span></div>
+<div class="barrow"><span class="lbl">10월</span><div class="track"><div class="fill red" style="width:83%"></div></div><span class="val red">−₩116M</span></div>
+<div class="barrow"><span class="lbl">11월</span><div class="track"><div class="fill red" style="width:74%"></div></div><span class="val red">−₩103M</span></div>
+<div class="barrow"><span class="lbl">12월</span><div class="track"><div class="fill red" style="width:62%"></div></div><span class="val red">−₩86M</span></div>
+</div>
+<table>
+<tr><th>시나리오</th><th>최저(피크 펀딩)</th><th>연말 누적</th></tr>
+<tr><td>🔴 bad</td><td>~−₩141M</td><td>~−₩139M</td></tr>
+<tr class="tot"><td>🟡 normal</td><td>~−₩120M</td><td>~−₩86M</td></tr>
+<tr><td>🟢 good</td><td>~−₩105M</td><td>~−₩32M</td></tr>
+</table>
+
+<h3>7-6. 결론 — 필요 운전자금</h3>
+<div class="hero"><b>9~12월 운전자금 약 ₩120~140M 확보가 필요합니다.</b><br>
+마케팅·운영 자체는 하반기 거의 본전입니다(재고 제외 시 연말 +₩10M). 현금 적자 ₩86M은 전부 <b>2만 개 재고 생산비</b>이며, 연말 ~1.9만 개 재고(약 ₩91M 자산)로 남아 <b>2027 매출로 회수</b>됩니다. 실질 손실이 아니라 <b>재고 투자</b>입니다.</div>
+
+<!-- 8 -->
+<h2 id="s8">8. 장기 비전 & 레버리지 (2026 → 2027+)</h2>
+<div class="hero">미국 매출 볼륨은 목적이 아니라 <b>더 큰 수익을 여는 지렛대</b>입니다. 2026에 축적하고, 2027부터 회수합니다.</div>
+<h3>8-1. 3대 레버리지 → 순이익 회수</h3>
+<div class="lever">
+<div class="node dark big">미국 볼륨·자산 (2026)</div>
+<div class="arrow">↓</div>
+<div class="row3">
+<div class="lcard"><div class="ic">🌏</div><b>① 타국 진출</b>UAE·사우디<br><span class="small">미국 트랙레코드 = 신뢰자산</span></div>
+<div class="lcard"><div class="ic">🤝</div><b>② B2B 협상 카드</b><br><span class="small">"미국 월 N개" = 단가·물량 협상력</span></div>
+<div class="lcard"><div class="ic">🏬</div><b>③ 오프라인 입점</b><br><span class="small">볼륨·리뷰 = 바이어 설득</span></div>
+</div>
+<div class="arrow">↓</div>
+<div class="node big" style="border-color:var(--green);background:var(--lemon-bg)">2027+ <b>B2B·오프라인 순이익</b></div>
+</div>
+<h3>8-2. 2027 분기별 행사·빅프로모 (시간 흐름)</h3>
+<div class="vcal">
+<div class="vphase" style="background:var(--lemon)">Q1 · 재정비·테스트 (1–3월)</div>
+<div class="vrow"><span class="vd">1월</span><span><span class="pill">B2B</span> Cosmoprof Miami — 디스트리뷰터</span></div>
+<div class="vrow"><span class="vd">3월</span><span><span class="pill">소비자</span> MakeUp in LA · Sephoria — 인플루언서·소비자</span></div>
+<div class="vphase" style="background:var(--lemon-d)">Q2 · 본격 셀링 (4–6월)</div>
+<div class="vrow star"><span class="vd">5/9</span><span>Mother's Day — 기프팅(번들) 볼륨</span></div>
+<div class="vrow"><span class="vd">4·6월</span><span>TikTok 4.4 · Prime Day</span></div>
+<div class="vphase" style="background:var(--green);color:#fff">Q3 · 비수기 공략 (7–9월)</div>
+<div class="vrow"><span class="vd">7월</span><span>Prime Day · <span class="pill">B2B</span> Cosmoprof Vegas</span></div>
+<div class="vphase" style="background:var(--green-d);color:#fff">Q4 · 최대 수확 (10–12월)</div>
+<div class="vrow star"><span class="vd">10–12월</span><span>Prime Big Deal · Black Friday·Cyber Monday · 홀리데이</span></div>
+</div>
+<h4>빅프로모션데이 — 기대효과·예상 비용</h4>
+<table>
+<tr><th>이벤트</th><th>시기</th><th>기대효과</th><th>예상 비용</th></tr>
+<tr><td>TikTok 4.4</td><td>4월</td><td>틱톡 볼륨 스파이크</td><td>바우처 코펀드</td></tr>
+<tr><td>Mother's Day</td><td>5/9</td><td>기프팅(번들) 볼륨</td><td>광고 증액</td></tr>
+<tr><td>Prime Day</td><td>7월</td><td>볼륨·신규고객 확보</td><td>딜 등록비 + 광고 증액</td></tr>
+<tr><td>Prime Big Deal</td><td>10월</td><td>Q4 수확 시작</td><td>딜 등록비 + 광고</td></tr>
+<tr><td>Black Friday·Cyber Monday</td><td>11월</td><td>연중 최대 볼륨</td><td>광고 스파이크</td></tr>
+</table>
+<h4>뷰티 행사 — 기대효과·예상 참가비 <span class="def">(추정)</span></h4>
+<table>
+<tr><th>행사</th><th>시기</th><th>유형</th><th>기대효과</th><th>예상 참가비</th></tr>
+<tr><td>Cosmoprof Miami</td><td>1월</td><td>B2B</td><td>중남미·미국 디스트리뷰터 확보</td><td>~₩7~15M</td></tr>
+<tr><td>MakeUp in LA</td><td>3월</td><td>B2B</td><td>OEM·리테일 바이어 네트워크</td><td>~₩4~7M</td></tr>
+<tr><td>Sephoria</td><td>3월</td><td>소비자</td><td>소비자·인플루언서 직접 노출</td><td>~₩7~15M</td></tr>
+<tr><td>Cosmoprof Vegas</td><td>7월</td><td>B2B</td><td>북미 최대 뷰티 B2B</td><td>~₩15~22M</td></tr>
+</table>
+<h3>8-3. 제품 확장</h3>
+<ul>
+<li>2027에는 레몬 엑소좀 시장 학습과 함께 SKU 2종을 추가해 <b>4-SKU 번들 세트</b> 등으로 번들 마케팅을 본격화합니다.</li>
+<li><b>쏘마지 8종</b> — 레몬더마로 검증한 Phase 1·2 플레이북(발견→히어로 소재→빅딜 수확)을 그대로 적용해 확장합니다.</li>
+</ul>
+
+<!-- 9 -->
+<h2 id="s9">9. 리스크 & 예방</h2>
+<table>
+<tr><th>리스크</th><th>예방 (실행 가능한 것)</th></tr>
+<tr><td>틱톡 전환 병목 (CVR 0.14%)</td><td>틱톡 예산을 고정 최소로 묶어 리스크 한정. PDP 보강·리뷰 작업을 CVR 반응을 보며 단계 투입.</td></tr>
+<tr><td>세럼 품절 (BF/CM 최대 수확기)</td><td>9월 말 생산 착수를 데드라인으로 고정, 세럼 비중 높게 생산, 주간 재고 모니터링.</td></tr>
+<tr><td>9월 현금 저점 (~₩120M)</td><td>종우형과 9월 운전자금 사전 합의. 물량을 bad 시나리오로 1차 발주 후 수요 확인하고 추가.</td></tr>
+<tr><td>광고 효율 미달</td><td>실험방↔통합 캠페인 분리로 낭비 차단. MER 2개월 연속 미달 시 예산 동결·소재 전면 교체.</td></tr>
+<tr><td>인플루언서 확보 실패</td><td>비현금 가치(30% 커미션·AI 코칭·Spotlight 도달)로 끌어들이고 티어 락인. ~5만 emerging 크리에이터 다수로 이탈 리스크 분산.</td></tr>
+<tr><td>Meta 스킨케어 소재 거부·계정 리스크</td><td>나란히 before/after 금지(단일 다이어리로 재편집) · "Brightening"은 whitening 금지 → glow/even-tone · 임상 수치는 Amazon PDP 한정.</td></tr>
+</table>
+
+<!-- 10 -->
+<h2 id="s10">10. VDVIA 마케팅 어드민 (LMA) — 데이터 인프라</h2>
+<div class="hero">레몬더마의 <b>모든 데이터(판매·광고·리뷰·재고·인플루언서·현금흐름)</b>가 한 곳에 축적·추적되는 <b>전용 마케팅 어드민(LMA)</b>을 직접 개발해 단계적으로 구축합니다. 흩어진 채널 데이터를 통합해 본 보고서의 측정·의사결정이 매일 자동으로 작동하게 만드는 것이 목표입니다.</div>
+<h4>데모 (개발 예정 화면)</h4>
+<div class="dash">
+<div class="top"><span>🍋 Lemonderma Marketing Admin</span><span>2026 H2 · normal</span></div>
+<div class="body">
+<div class="side">
+<div class="on">📊 대시보드</div><div>📈 광고 (Meta·PPC)</div><div>⭐ 리뷰</div><div>📦 재고·현금흐름</div><div>👥 써클 인플루언서</div><div>📑 월간 리포트</div>
+</div>
+<div class="main">
+<div class="kpis">
+<div class="kpi"><div class="k">일 판매</div><div class="v">38</div></div>
+<div class="kpi"><div class="k">MER</div><div class="v">2.0</div></div>
+<div class="kpi"><div class="k">틱톡 CVR</div><div class="v">1.0%</div></div>
+<div class="kpi"><div class="k">히어로 소재</div><div class="v">5</div></div>
+<div class="kpi"><div class="k">세럼 재고</div><div class="v">2,911</div></div>
+<div class="kpi"><div class="k">써클</div><div class="v">10</div></div>
+</div>
+<div class="chartph">
+<div class="cb" style="height:18%"></div><div class="cb" style="height:26%"></div><div class="cb" style="height:32%"></div><div class="cb" style="height:38%"></div><div class="cb" style="height:62%"></div><div class="cb" style="height:88%"></div><div class="cb" style="height:100%"></div>
+</div>
+<p class="small" style="margin-top:6px">월별 매출 추이 · 채널 기여 분리(메타=전체 아마존−PPC) 자동 계산</p>
+</div>
+</div>
+</div>
+<h4>구성 (단계적 개발)</h4>
+<ul>
+<li><b>① 데이터 통합:</b> Amazon·TikTok Shop·Meta·CGETC(물류) + <b>써클 트래킹(핸들·티어·누적조회·판매·커미션)</b> 데이터를 한 곳으로 자동 수집.</li>
+<li><b>② 자동 측정:</b> 훅률·hold·CTR(진단 사다리)·주간 실험 현황·MER·채널 기여 분리를 자동 추적 (본 보고서의 측정 체계를 코드화).</li>
+<li><b>③ 재고·현금흐름 알림:</b> 재고 소진·재생산 데드라인(9월 말 등)·현금 저점을 사전 경고.</li>
+<li><b>④ 월간 리포트 자동 생성:</b> 볼륨·효율·자산·예산을 한 장으로 요약.</li>
+</ul>
+
+<!-- 11 -->
+<h2 id="s11">11. 결정 요청</h2>
+<h3>2026 하반기 — 필요 예산 총정리</h3>
+<table>
+<tr><th>항목</th><th>금액</th><th>세부 내역</th></tr>
+<tr><td>마케팅비</td><td><b>₩143M</b></td><td>광고 ₩128M · 딜 운영비 ₩5M · 써클 운영비(협찬·챌린지) ₩10M</td></tr>
+<tr><td>고정비</td><td><b>₩26M</b></td><td>툴 ₩70만/월 + 기타(식비·출장·접대·소품) ₩300만/월 × 7개월</td></tr>
+<tr><td>재고 생산</td><td><b>₩96M</b></td><td>세럼·크림 각 1만 개(2만 개), 9월 생산 — 2027 재고 포함</td></tr>
+<tr class="tot"><td>총 지출</td><td><b>₩265M</b></td><td>—</td></tr>
+</table>
+<table>
+<tr><td>(−) 하반기 매출로 자체 충당</td><td class="r">~₩179M</td></tr>
+<tr class="tot"><td><b>= 순 필요 운전자금 (9월 현금 저점)</b></td><td class="r"><b>₩120~140M</b></td></tr>
+</table>
+<p class="small">총 지출 ₩265M의 대부분은 하반기 매출로 충당됩니다. 실제로 필요한 것은 9월 현금 저점을 넘기는 운전자금이며, 그 핵심인 재고 ₩96M은 2027 매출로 회수되는 자산입니다.</p>
+<div class="hero"><b>결정 요청 사항 — 2가지</b><br><br>
+<b>① 운전자금 ₩140M 확보</b> — bad 시나리오 피크까지 커버합니다. 대부분 재고 자산으로 2027 매출에서 회수됩니다.<br>
+<b>② 9월 말 재고 2만 개 생산 착수 GO</b> — 7주 리드타임상, BF/CM 세럼 품절을 막는 데드라인입니다.</div>
+
+<hr>
+<p class="small">© 2026 VDVIA · Lemonderma · 내부 전략 문서. 일부 물류비·번들 풀필먼트는 추정입니다. 볼륨·MER은 광고 기준 보수치이며 오가닉은 업사이드입니다. 환율 1,450 KRW/USD.</p>
+
+<script>
+(function(){
+  var nodes=Array.prototype.slice.call(document.body.childNodes);
+  var deck=document.createElement('div');deck.id='deck';
+  var cur=document.createElement('section');cur.className='slide';deck.appendChild(cur);
+  nodes.forEach(function(n){
+    if(n.nodeType===1&&n.tagName==='SCRIPT')return;
+    if(n.nodeType===1&&n.tagName==='H2'){cur=document.createElement('section');cur.className='slide';deck.appendChild(cur);}
+    cur.appendChild(n);
+  });
+  document.body.appendChild(deck);
+  var slides=Array.prototype.slice.call(deck.querySelectorAll('.slide'));
+  var idx=0;
+  var btn=document.createElement('button');btn.id='presentBtn';btn.textContent='▶ 발표 모드';document.body.appendChild(btn);
+  var nav=document.createElement('div');nav.id='navbar';
+  nav.innerHTML='<button id="pv">◀ 이전</button><span class="ct"></span><button id="nx">다음 ▶</button><button id="ex">⛶ 나가기 (Esc)</button>';
+  document.body.appendChild(nav);
+  var spot=document.createElement('div');spot.className='spotlight';document.body.appendChild(spot);
+  var ct=nav.querySelector('.ct');
+  function show(i){i=Math.max(0,Math.min(slides.length-1,i));slides[idx].classList.remove('active');idx=i;slides[idx].classList.add('active');slides[idx].scrollTop=0;ct.textContent=(idx+1)+' / '+slides.length;}
+  function enter(){document.body.classList.add('presenting');show(idx);}
+  function exit(){document.body.classList.remove('presenting');slides.forEach(function(s){s.classList.remove('active');});}
+  btn.onclick=enter;
+  nav.querySelector('#pv').onclick=function(){show(idx-1);};
+  nav.querySelector('#nx').onclick=function(){show(idx+1);};
+  nav.querySelector('#ex').onclick=exit;
+  document.addEventListener('keydown',function(e){
+    if(!document.body.classList.contains('presenting')){if(e.key==='f'||e.key==='F')enter();return;}
+    if(e.key==='ArrowRight'||e.key==='PageDown'||e.key===' '){e.preventDefault();show(idx+1);}
+    else if(e.key==='ArrowLeft'||e.key==='PageUp'){e.preventDefault();show(idx-1);}
+    else if(e.key==='Escape')exit();
+  });
+  deck.addEventListener('click',function(e){
+    var a=e.target.closest?e.target.closest('a[href^="#"]'):null;
+    if(a&&document.body.classList.contains('presenting')){
+      var t=document.getElementById(a.getAttribute('href').slice(1));
+      if(t){var s=t.closest('.slide');var i=slides.indexOf(s);if(i>=0){e.preventDefault();show(i);}}
+    }
+  });
+  document.addEventListener('mousemove',function(e){spot.style.left=e.clientX+'px';spot.style.top=e.clientY+'px';});
+})();
+</script>
+</body>
+</html>
